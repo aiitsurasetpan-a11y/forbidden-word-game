@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>เกมคำต้องห้าม</title>
+<title>เกมวงเพื่อน</title>
 <meta name="author" content="Suraset Pantura">
-<meta name="description" content="เกมคำต้องห้ามภาษาไทย สำหรับผู้เล่น 2 ถึง 8 คน เล่นร่วมกันผ่านการโทร">
+<meta name="description" content="เกมคำภาษาไทยสำหรับเล่นกับเพื่อน 2 ถึง 8 คน ประกอบด้วยเกมคำต้องห้ามและเกมหาคนแปลก เล่นร่วมกันผ่านการโทร">
 <meta name="theme-color" content="#FFF28A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -128,6 +128,15 @@ details.rules summary{cursor:pointer;font-weight:700}
 details.rules ol{margin:12px 0 0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}
 
 .catbanner{align-self:flex-start;background:var(--mint);color:var(--on);border:3px solid var(--line);border-radius:14px;padding:4px 16px;font-weight:700;font-size:1.1rem;box-shadow:var(--shadow-s);transform:rotate(-1deg)}
+.gamegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.gcard{background:var(--surface2);border:3px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow-s)}
+.gcard:nth-child(2){background:var(--hl)}
+.gcard h3{margin:0;font-size:1.25rem;font-weight:700}
+.gcard button{align-self:flex-start}
+.plate.ok{border-color:var(--ok);background:var(--ok-soft)}
+.mine .word{font-size:clamp(2rem,9vw,3rem)}
+.res{display:flex;flex-direction:column;gap:6px;background:var(--hl);border:3px solid var(--line);border-radius:16px;padding:12px 14px}
+.res strong{font-size:1.15rem}
 #toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:min(92vw,520px);background:var(--ink);color:var(--bg);border:3px solid var(--line);padding:12px 16px;border-radius:16px;font-weight:700;z-index:20;box-shadow:var(--shadow)}
 @media (max-width:520px){
   .cards{grid-template-columns:1fr}
@@ -141,8 +150,8 @@ details.rules ol{margin:12px 0 0;padding-left:1.3em;display:flex;flex-direction:
   <header class="hero">
     <span class="nosign big" aria-hidden="true"></span>
     <div class="grow">
-      <h1>เกมคำต้องห้าม</h1>
-      <p class="sub">Forbidden Word, ผู้เล่น 2 ถึง 8 คน เล่นร่วมกันผ่านการโทรเสียงหรือวิดีโอ</p>
+      <h1>เกมวงเพื่อน</h1>
+      <p class="sub">เกมคำภาษาไทยสำหรับเล่นกับเพื่อน เล่นร่วมกันผ่านการโทรเสียงหรือวิดีโอ</p>
     </div>
     <span class="badge">2 ถึง 8 คน</span>
   </header>
@@ -150,17 +159,22 @@ details.rules ol{margin:12px 0 0;padding-left:1.3em;display:flex;flex-direction:
 
   <!-- หน้าแรก -->
   <section id="join" class="panel">
-    <h2>เริ่มเล่น</h2>
-    <ol class="steps">
-      <li>ผู้เริ่มเกมกรอกรายชื่อผู้เล่นทุกคน (2 ถึง 8 คน) แล้วกดล็อกรายชื่อ จะได้ลิงก์เชิญและรหัสเชิญ</li>
-      <li>ส่งลิงก์เชิญให้เพื่อน เพื่อนไม่ต้องกรอกรายชื่ออีก</li>
-      <li>ทุกคนเลือกว่าตนเองเป็นผู้เล่นคนที่เท่าไร แต่ละคนจะเห็นคำต้องห้ามของผู้อื่น แต่ไม่เห็นคำของตนเอง</li>
-      <li>พูดคุยกันผ่านการโทรเสียงหรือวิดีโอ และใช้คำใบ้บนการ์ดชวนคุยเรื่องเดียวกัน</li>
-    </ol>
-    <div class="btns"><button id="btnOffline" class="primary" type="button">เริ่มสร้างห้องและกรอกรายชื่อ</button></div>
+    <h2>เลือกเกม</h2>
+    <div class="gamegrid">
+      <div class="gcard">
+        <h3>เกมคำต้องห้าม</h3>
+        <p class="note">ทุกคนเห็นคำของเพื่อน ยกเว้นคำของตนเอง ชวนเพื่อนคุยให้เผลอพูดคำต้องห้ามของตัวเอง</p>
+        <button id="btnOffline" class="primary" type="button">เล่นเกมนี้</button>
+      </div>
+      <div class="gcard">
+        <h3>เกมหาคนแปลก</h3>
+        <p class="note">ทุกคนได้คำเดียวกัน ยกเว้น 1 คนที่ได้คำคล้ายกันแต่ไม่เหมือน ผลัดกันพูดใบ้แล้วโหวตหาคนแปลก</p>
+        <button id="btnOdd" class="primary" type="button">เล่นเกมนี้</button>
+      </div>
+    </div>
     <div style="display:flex;flex-direction:column;gap:8px;border-top:3px dashed var(--line);padding-top:14px">
-      <label for="inviteIn">มีรหัสเชิญหรือลิงก์เชิญจากเพื่อน วางที่นี่
-        <input id="inviteIn" type="text" autocomplete="off" placeholder="เช่น p-1234-...">
+      <label for="inviteIn">มีรหัสเชิญหรือลิงก์เชิญจากเพื่อน วางที่นี่ (ใช้ได้กับทั้งสองเกม)
+        <input id="inviteIn" type="text" autocomplete="off" placeholder="เช่น p-1234-... หรือ s-1234-...">
       </label>
       <div class="btns"><button id="inviteGo" class="primary" type="button">เปิดด้วยรหัสเชิญ</button></div>
       <p id="inviteMsg" class="msg err"></p>
@@ -168,15 +182,37 @@ details.rules ol{margin:12px 0 0;padding-left:1.3em;display:flex;flex-direction:
   </section>
 
   <details class="rules">
-    <summary>กติกาการเล่น</summary>
+    <summary>วิธีเริ่มเล่น (ทั้งสองเกม)</summary>
+    <ol>
+      <li>ผู้เริ่มเกมเลือกเกม กรอกรายชื่อผู้เล่นทุกคนรวมตัวท่านเอง แล้วกดล็อกรายชื่อ จะได้ลิงก์เชิญและรหัสเชิญ</li>
+      <li>ส่งลิงก์เชิญให้เพื่อน เพื่อนไม่ต้องกรอกรายชื่ออีก หากลิงก์เปิดไม่ได้ ให้เพื่อนวางรหัสเชิญในช่องด้านบน</li>
+      <li>ทุกคนเลือกว่าตนเองเป็นผู้เล่นคนที่เท่าไร และกด "รอบถัดไป" พร้อมกันทุกครั้งที่เริ่มรอบใหม่</li>
+      <li>พูดคุยกันผ่านการโทรเสียงหรือวิดีโอ เวลาและคะแนนนับแยกในแต่ละเครื่อง จึงควรตกลงให้ผู้เล่นหนึ่งคนเป็นผู้ดูแลคะแนน</li>
+    </ol>
+  </details>
+
+  <details class="rules">
+    <summary>กติกาเกมคำต้องห้าม</summary>
     <ol>
       <li>ผู้เล่นแต่ละคนมีคำต้องห้ามหนึ่งคำ ผู้เล่นอื่นทุกคนเห็นคำนั้นพร้อมคำใบ้ แต่เจ้าของคำมองไม่เห็น ทุกคนในรอบเดียวกันได้คำจากหมวดเดียวกัน ซึ่งแสดงชื่อหมวดไว้ให้ทุกคนเห็น เพื่อให้ชวนคุยเรื่องเดียวกันได้</li>
       <li>ทุกคนสนทนากันผ่านการโทรตลอดเวลาของรอบ ผู้เล่นพยายามชวนคุยให้ผู้อื่นเผลอพูดคำต้องห้ามของตนเอง</li>
       <li>เมื่อได้ยินผู้ใดพูดคำต้องห้ามของตนเอง ผู้จับได้รับ 1 คะแนน ผู้ถูกจับถูกหัก 1 คะแนน โดยผู้ดูแลคะแนนกดปุ่ม + และ − ที่กระดานคะแนน</li>
       <li>ผู้เล่นทายคำต้องห้ามของตนเองถูกต้อง ได้ 2 คะแนน</li>
       <li>เมื่อหมดเวลา (ค่าเริ่มต้น 120 วินาที) ทุกคนกด "รอบถัดไป" พร้อมกัน จะได้คำและหมวดใหม่ จำนวนรอบตกลงกันเอง หากไม่กำหนด เล่นได้ไม่จำกัด</li>
-      <li>เวลาและคะแนนนับแยกในแต่ละเครื่อง จึงควรตกลงให้ผู้เล่นหนึ่งคนเป็นผู้ดูแลคะแนนและบอกเวลาเริ่มผ่านการโทร</li>
       <li>ผู้มีคะแนนรวมสูงสุดเมื่อจบเกมเป็นผู้ชนะ</li>
+    </ol>
+  </details>
+
+  <details class="rules">
+    <summary>กติกาเกมหาคนแปลก</summary>
+    <ol>
+      <li>ผู้เล่นทุกคนได้คำหนึ่งคำ ทุกคนได้คำเดียวกัน ยกเว้นคนแปลก 1 คนที่ได้คำคล้ายกันแต่ไม่เหมือน ผู้เล่นไม่ทราบว่าตนเองเป็นคนแปลกหรือไม่ ระบบแสดงเฉพาะหมวดของรอบให้ทุกคนเห็น</li>
+      <li>ทุกคนกด "แสดงคำของฉัน" เพื่อดูคำของตนเองอย่างลับๆ คำจะซ่อนเองอัตโนมัติ ห้ามพูดคำของตนเองตรงๆ</li>
+      <li>ผลัดกันพูดใบ้ตามลำดับที่แสดง คนละหนึ่งประโยคสั้นๆ วนอย่างน้อย 2 รอบหรือจนหมดเวลา คำใบ้ต้องไม่ใช้คำนั้นตรงๆ</li>
+      <li>ฟังคำใบ้ของทุกคนแล้วสังเกตว่าใครใบ้ต่างจากพวก หากท่านรู้สึกว่าคำใบ้ของตนเองไม่เข้ากับผู้อื่น ท่านอาจเป็นคนแปลก ให้ปรับคำใบ้ให้กลมกลืนกับกลุ่ม</li>
+      <li>เมื่อหมดเวลา ทุกคนนับสามแล้วชี้ผู้ที่สงสัยที่สุดพร้อมกัน หรือพิมพ์ชื่อในแชท ผู้ที่ได้คะแนนโหวตมากที่สุดคือผู้ถูกจับ</li>
+      <li>กด "เฉลยผลรอบนี้" เมื่อโหวตเสร็จแล้วเท่านั้น หากจับถูก ผู้เล่นที่ไม่ใช่คนแปลกทุกคนได้ 1 คะแนน และคนแปลกมีโอกาสทายคำของกลุ่ม ถ้าทายถูกได้ 2 คะแนน หากจับผิดหรือจับไม่ได้ คนแปลกได้ 3 คะแนน</li>
+      <li>ผู้ดูแลคะแนนกด + และ − ที่กระดานคะแนน เมื่อเล่นครบรอบเท่าจำนวนผู้เล่น ทุกคนจะได้เป็นคนแปลกคนละ 1 ครั้งเท่ากัน</li>
     </ol>
   </details>
 
@@ -234,6 +270,80 @@ details.rules ol{margin:12px 0 0;padding-left:1.3em;display:flex;flex-direction:
       <h2>คะแนน (นับในเครื่องนี้)</h2>
       <ol id="offBoard" class="board sb"></ol>
       <div class="btns"><button id="offReset" class="ghost" type="button">ล้างคะแนนทั้งหมด</button></div>
+    </div>
+  </section>
+  <!-- เกมหาคนแปลก -->
+  <section id="odd" hidden style="display:flex;flex-direction:column;gap:16px">
+    <div id="spSetup" class="panel">
+      <h2>ตั้งค่ารายชื่อผู้เล่น (เกมหาคนแปลก)</h2>
+      <p class="note">ผู้เริ่มเกมกรอกรายชื่อผู้เล่นทุกคนรวมตัวท่านเอง บรรทัดละหนึ่งชื่อ จำนวน 3 ถึง 8 คน (แนะนำ 4 คนขึ้นไป) เมื่อกดล็อก จำนวนผู้เล่นจะเท่ากับรายชื่อและแก้ไขไม่ได้ จากนั้นส่งลิงก์เชิญให้เพื่อน</p>
+      <label for="spNames">รายชื่อผู้เล่น (ชื่อสมมติ ไม่เกิน 12 ตัวอักษรต่อชื่อ)
+        <textarea id="spNames" rows="7" placeholder="ตัวอย่าง&#10;แมวเหมียว&#10;หมีพูห์&#10;ปลาทอง&#10;กระต่ายน้อย"></textarea>
+      </label>
+      <p id="spCount" class="note">จำนวนผู้เล่นขณะนี้ 0 คน (3 ถึง 8 คน)</p>
+      <div class="btns">
+        <button id="spLock" class="primary" type="button">ล็อกรายชื่อและสร้างลิงก์เชิญ</button>
+        <button id="spBack" class="ghost" type="button">กลับหน้าแรก</button>
+      </div>
+      <p id="spMsg" class="msg err"></p>
+    </div>
+
+    <div id="spPlay" hidden style="display:flex;flex-direction:column;gap:16px">
+      <div class="panel">
+        <h2>รหัสห้อง (Room Code) <span id="spCodeShow" style="letter-spacing:.12em"></span></h2>
+        <p id="spLocked" class="note"></p>
+        <label for="spMe">ท่านเป็นผู้เล่นคนที่ (ต้องเลือกก่อนจึงจะเห็นคำ)
+          <select id="spMe"></select>
+        </label>
+        <label for="spCodeBox">รหัสเชิญ (ใช้แทนลิงก์ได้ หากลิงก์เปิดไม่ได้)
+          <input id="spCodeBox" type="text" readonly>
+        </label>
+        <div class="btns">
+          <button id="spCopy" class="primary" type="button">คัดลอกลิงก์เชิญ</button>
+          <button id="spCopyCode" class="ghost" type="button">คัดลอกรหัสเชิญ</button>
+          <button id="spRestart" class="ghost" type="button">ปลดล็อกเพื่อแก้ไขรายชื่อ</button>
+        </div>
+        <p class="note">ทุกคนต้องเลือกลำดับผู้เล่นไม่ซ้ำกัน และใช้ลิงก์หรือรหัสเชิญเดียวกันเท่านั้น</p>
+      </div>
+
+      <div class="panel">
+        <div class="btns" style="align-items:center">
+          <button id="spPrev" class="ghost" type="button">รอบก่อนหน้า</button>
+          <strong id="spRound">รอบที่ 1</strong>
+          <button id="spNext" class="ghost" type="button">รอบถัดไป</button>
+        </div>
+        <div id="spCat" class="catbanner"></div>
+        <div id="spMine" class="mine" style="display:flex;flex-direction:column;gap:12px">
+          <div id="spWordBox" class="plate hidden"><div class="word" id="spWord">ซ่อนอยู่</div></div>
+          <div class="btns"><button id="spShow" class="primary" type="button">แสดงคำของฉัน</button></div>
+          <p id="spMineNote" class="note"></p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>ลำดับพูดใบ้</h2>
+        <ol id="spOrder" class="board"></ol>
+        <div class="row">
+          <label for="spDur">เวลาพูดใบ้ (วินาที)
+            <input id="spDur" type="number" min="30" max="900" step="10" value="180" inputmode="numeric">
+          </label>
+          <div class="btns" style="align-items:center">
+            <button id="spTimer" class="primary" type="button">เริ่มจับเวลา</button>
+            <strong id="spTime" style="font-size:1.6rem;font-variant-numeric:tabular-nums"></strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>เฉลย</h2>
+        <p class="note">กดเมื่อทุกคนโหวตเสร็จแล้วเท่านั้น เพราะเฉลยจะบอกว่าใครเป็นคนแปลกและคำของแต่ละฝ่าย</p>
+        <div class="btns"><button id="spReveal" class="ghost" type="button">เฉลยผลรอบนี้</button></div>
+        <div id="spResult" class="res" hidden></div>
+      </div>
+
+      <h2>คะแนน (นับในเครื่องนี้)</h2>
+      <ol id="spBoard" class="board sb"></ol>
+      <div class="btns"><button id="spReset" class="ghost" type="button">ล้างคะแนนทั้งหมด</button></div>
     </div>
   </section>
 </main>
@@ -515,9 +625,10 @@ function parseInvite(raw){
   var k=s.indexOf("#");if(k>=0)s=s.slice(k+1);
   s=s.replace(/\s+/g,"");
   var m;
-  if((m=/^p-([0-9]{4})-([0-9A-Za-z]+)$/.exec(s))){var nm=unpackNames(m[2]);return nm?{code:m[1],names:nm}:null;}
-  if((m=/^o-([0-9]{4})-([2-8])$/.exec(s))){var a=[];for(var i=1;i<=parseInt(m[2],10);i++)a.push("ผู้เล่น "+i);return {code:m[1],names:a};}
-  if((m=/^o-([0-9]{4})((?:-(?:[0-9a-f]{2})+)+)$/.exec(s))){var n2=m[2].slice(1).split("-").map(hexDec).filter(Boolean).slice(0,8);return n2.length>=2?{code:m[1],names:n2}:null;}
+  if((m=/^p-([0-9]{4})-([0-9A-Za-z]+)$/.exec(s))){var nm=unpackNames(m[2]);return nm?{game:"p",code:m[1],names:nm}:null;}
+  if((m=/^s-([0-9]{4})-([0-9A-Za-z]+)$/.exec(s))){var ns=unpackNames(m[2]);return (ns&&ns.length>=3)?{game:"s",code:m[1],names:ns}:null;}
+  if((m=/^o-([0-9]{4})-([2-8])$/.exec(s))){var a=[];for(var i=1;i<=parseInt(m[2],10);i++)a.push("ผู้เล่น "+i);return {game:"p",code:m[1],names:a};}
+  if((m=/^o-([0-9]{4})((?:-(?:[0-9a-f]{2})+)+)$/.exec(s))){var n2=m[2].slice(1).split("-").map(hexDec).filter(Boolean).slice(0,8);return n2.length>=2?{game:"p",code:m[1],names:n2}:null;}
   return null;
 }
 function parseNames(){return $("offNames").value.split(/\n+/).map(function(s){return s.trim().replace(/\s+/g," ").slice(0,12);}).filter(Boolean);}
@@ -552,7 +663,7 @@ function startLocked(arr,c){
   offRender();
 }
 function openOffline(c,list){
-  $("join").hidden=true;$("offline").hidden=false;
+  $("join").hidden=true;$("odd").hidden=true;$("offline").hidden=false;
   offCodeV=c||randCode();
   if(list&&list.length>=2){startLocked(list,offCodeV);}
   else{offList=null;$("offPlay").hidden=true;$("offSetup").hidden=false;offCountRefresh();}
@@ -596,18 +707,210 @@ function copyText(txt,okMsg){
 }
 $("offCopy").addEventListener("click",function(){if(offList)copyText(offLink(),"คัดลอกลิงก์เชิญแล้ว ส่งให้เพื่อนได้ทันที");});
 $("offCopyCode").addEventListener("click",function(){if(offList)copyText(offCodeText(),"คัดลอกรหัสเชิญแล้ว ส่งให้เพื่อนวางในช่องรหัสเชิญ");});
+/* ---------- เกมหาคนแปลก ---------- */
+var PRAW=`อาหาร|กาแฟ|ชา
+อาหาร|ข้าว|ก๋วยเตี๋ยว
+อาหาร|หมู|ไก่
+อาหาร|ส้ม|มะนาว
+อาหาร|กล้วย|มะม่วง
+อาหาร|เค้ก|คุกกี้
+อาหาร|พิซซ่า|เบอร์เกอร์
+อาหาร|นม|โยเกิร์ต
+อาหาร|ซุป|แกง
+อาหาร|ขนม|ลูกอม
+อาหาร|น้ำ|โซดา
+อาหาร|ทุเรียน|ขนุน
+อาหาร|กุ้ง|ปู
+อาหาร|ปลา|หมึก
+อาหาร|ผัก|เห็ด
+อาหาร|เบียร์|ไวน์
+อาหาร|ไอศกรีม|เยลลี่
+สัตว์|แมว|หมา
+สัตว์|ช้าง|ม้า
+สัตว์|เสือ|สิงโต
+สัตว์|ปลา|โลมา
+สัตว์|นก|ค้างคาว
+สัตว์|กบ|คางคก
+สัตว์|หนู|กระต่าย
+สัตว์|ยุง|แมลงวัน
+สัตว์|ผึ้ง|ผีเสื้อ
+สัตว์|วัว|ควาย
+สัตว์|เป็ด|ห่าน
+สัตว์|ลิง|ชะนี
+สถานที่|ทะเล|แม่น้ำ
+สถานที่|ห้าง|ตลาด
+สถานที่|วัด|โบสถ์
+สถานที่|สวน|ป่า
+สถานที่|ตึก|คอนโด
+สถานที่|บ้าน|กระท่อม
+สถานที่|ถนน|ตรอก
+ของใช้|ปากกา|ดินสอ
+ของใช้|โต๊ะ|เก้าอี้
+ของใช้|เตียง|โซฟา
+ของใช้|หมอน|เบาะ
+ของใช้|มีด|กรรไกร
+ของใช้|ช้อน|ส้อม
+ของใช้|จาน|ชาม
+ของใช้|แก้ว|ขวด
+ของใช้|พัดลม|แอร์
+ของใช้|กระเป๋า|เป้
+ของใช้|เสื้อ|กางเกง
+ของใช้|กระโปรง|กางเกง
+ของใช้|โทรศัพท์|แท็บเล็ต
+ของใช้|สบู่|แชมพู
+ยานพาหนะ|มอไซค์|สกูตเตอร์
+ยานพาหนะ|แท็กซี่|บัส
+ยานพาหนะ|เรือ|แพ
+ยานพาหนะ|จรวด|บอลลูน
+บุคคล|หมอ|พยาบาล
+บุคคล|ครู|อาจารย์
+บุคคล|ตำรวจ|ทหาร
+บุคคล|พ่อ|แม่
+บุคคล|พี่|น้อง
+บุคคล|เพื่อน|แฟน
+บุคคล|ดารา|ศิลปิน
+บุคคล|เด็ก|ทารก
+ธรรมชาติ|ฝน|หิมะ
+ธรรมชาติ|ลม|พายุ
+ธรรมชาติ|เมฆ|หมอก
+ธรรมชาติ|หิน|ทราย
+ธรรมชาติ|ไฟ|ควัน
+ธรรมชาติ|กุหลาบ|ทานตะวัน
+ชีวิตประจำวัน|หนัง|ละคร
+ชีวิตประจำวัน|เกม|การ์ตูน
+ชีวิตประจำวัน|ไลน์|เฟซบุ๊ก
+ชีวิตประจำวัน|เน็ต|ไวไฟ
+ชีวิตประจำวัน|เช้า|บ่าย
+ชีวิตประจำวัน|งาน|เรียน
+ชีวิตประจำวัน|เงิน|ทอง
+ชีวิตประจำวัน|หนี้|ภาษี
+ชีวิตประจำวัน|กิน|ดื่ม
+ชีวิตประจำวัน|นอน|งีบ
+ชีวิตประจำวัน|วิ่ง|เดิน
+ชีวิตประจำวัน|อ่าน|เขียน
+ชีวิตประจำวัน|ขโมย|โกง`;
+var PAIRS=PRAW.trim().split("\n").map(function(l){var q=l.split("|");return {c:q[0],a:q[1],b:q[2]};});
+var spList=null,spCodeV="",spRound=1,spScores=[0,0,0,0,0,0,0,0],spRev=false,spShown=false,spShowT=0,spEnd=0,spTimerId=0,spPoolCache={};
+function openInvite(r){if(r.game==="s")openOdd(r.code,r.names);else openOffline(r.code,r.names);}
+function spPool(c){
+  if(spPoolCache[c])return spPoolCache[c];
+  var idx=PAIRS.map(function(_,i){return i;});
+  idx.sort(function(a,b){var d=hash(c+"|sp|"+a)-hash(c+"|sp|"+b);return d||(a-b);});
+  return (spPoolCache[c]=idx);
+}
+function spInfo(c,n,r){
+  var pool=spPool(c),pair=PAIRS[pool[(r-1)%pool.length]];
+  var flip=hash(c+"|f|"+r)%2,main=flip?pair.b:pair.a,odd=flip?pair.a:pair.b;
+  var k=Math.floor((r-1)/n),pos=(r-1)%n,slots=[];
+  for(var i=0;i<n;i++)slots.push(i);
+  var perm=slots.slice().sort(function(a,b){var d=hash(c+"|op|"+k+"|"+a)-hash(c+"|op|"+k+"|"+b);return d||(a-b);});
+  var order=slots.map(function(i){return i+1;}).sort(function(a,b){var d=hash(c+"|ord|"+r+"|"+a)-hash(c+"|ord|"+r+"|"+b);return d||(a-b);});
+  return {cat:pair.c,main:main,odd:odd,oddSlot:perm[pos]+1,order:order};
+}
+function spCodeText(){return "s-"+spCodeV+"-"+packNames(spList);}
+function spParse(){return $("spNames").value.split(/\n+/).map(function(s){return s.trim().replace(/\s+/g," ").slice(0,12);}).filter(Boolean);}
+function spCountRefresh(){$("spCount").textContent="จำนวนผู้เล่นขณะนี้ "+spParse().length+" คน (3 ถึง 8 คน)";}
+function spHide(){spShown=false;clearTimeout(spShowT);}
+function spRender(){
+  if(!spList)return;
+  var labels=spList,n=labels.length,me=$("spMe");
+  var cur=parseInt(me.value,10)||0,sig=labels.join("|");
+  if(me.dataset.sig!==sig){
+    me.innerHTML='<option value="">เลือกลำดับของท่าน</option>'+labels.map(function(l,i){return '<option value="'+(i+1)+'">'+(i+1)+' ('+esc(l)+')</option>';}).join("");
+    me.dataset.sig=sig;me.value=(cur>=1&&cur<=n)?String(cur):"";
+  }
+  var mine=parseInt(me.value,10)||0,info=spInfo(spCodeV,n,spRound);
+  $("spCodeShow").textContent=spCodeV;$("spCodeBox").value=spCodeText();
+  $("spLocked").textContent="ล็อกรายชื่อแล้ว "+n+" คน ได้แก่ "+labels.map(function(l,i){return (i+1)+". "+l;}).join(", ");
+  $("spRound").textContent="รอบที่ "+spRound;
+  $("spCat").textContent="หมวดของรอบนี้: "+info.cat;
+  var box=$("spWordBox");
+  if(!mine){
+    box.className="plate hidden";$("spWord").textContent="ยังไม่ได้เลือกลำดับ";
+    $("spShow").disabled=true;$("spMineNote").textContent="กรุณาเลือก \"ท่านเป็นผู้เล่นคนที่\" ก่อน ระบบจึงจะแสดงคำของท่านได้";
+  }else if(spShown){
+    box.className="plate ok";$("spWord").textContent=(mine===info.oddSlot)?info.odd:info.main;
+    $("spShow").disabled=false;$("spShow").textContent="ซ่อนคำ";$("spMineNote").textContent="คำจะซ่อนเองใน 6 วินาที ห้ามให้ผู้อื่นเห็นหน้าจอของท่าน";
+  }else{
+    box.className="plate hidden";$("spWord").textContent="ซ่อนอยู่";
+    $("spShow").disabled=false;$("spShow").textContent="แสดงคำของฉัน";$("spMineNote").textContent="กดเมื่อพร้อมดูคำ ขณะดูคำ ควรปิดการแชร์หน้าจอของท่านก่อน";
+  }
+  $("spOrder").innerHTML=info.order.map(function(s,i){return '<li><span class="rk">'+(i+1)+'</span><span class="nm">'+esc(labels[s-1])+(s===mine?' (ท่าน)':'')+'</span><span></span></li>';}).join("");
+  var res=$("spResult");res.hidden=!spRev;
+  if(spRev){res.innerHTML='<div>คนแปลกคือ <strong>'+esc(labels[info.oddSlot-1])+'</strong> (ผู้เล่นคนที่ '+info.oddSlot+')</div><div>คำของกลุ่ม <strong>'+esc(info.main)+'</strong></div><div>คำของคนแปลก <strong>'+esc(info.odd)+'</strong></div>';}
+  $("spReveal").disabled=spRev;
+  $("spBoard").innerHTML=labels.map(function(l,i){
+    return '<li><span class="nm">'+esc(l)+(i+1===mine?' (ท่าน)':'')+'</span><span class="sc">'+spScores[i]+'</span><span class="adj"><button type="button" data-i="'+i+'" data-d="-1" aria-label="หัก 1 คะแนน '+esc(l)+'">−</button><button type="button" data-i="'+i+'" data-d="1" aria-label="เพิ่ม 1 คะแนน '+esc(l)+'">+</button></span></li>';
+  }).join("");
+}
+function spStart(arr,c){
+  spList=arr.slice(0,8);spCodeV=c;spRound=1;spScores=[0,0,0,0,0,0,0,0];spRev=false;spHide();
+  $("spSetup").hidden=true;$("spPlay").hidden=false;
+  try{location.hash=spCodeText();}catch(e){}
+  spRender();
+}
+function openOdd(c,list){
+  $("join").hidden=true;$("offline").hidden=true;$("odd").hidden=false;
+  spCodeV=c||randCode();
+  if(list&&list.length>=3){spStart(list,spCodeV);}
+  else{spList=null;$("spPlay").hidden=true;$("spSetup").hidden=false;spCountRefresh();}
+}
+$("spNames").addEventListener("input",spCountRefresh);
+$("spLock").addEventListener("click",function(){
+  var arr=spParse(),m=$("spMsg");
+  if(arr.length<3){m.textContent="ต้องมีผู้เล่นอย่างน้อย 3 คน (แนะนำ 4 คนขึ้นไป)";return;}
+  if(arr.length>8){m.textContent="รายชื่อเกิน 8 คน กรุณาลดให้เหลือไม่เกิน 8 คน";return;}
+  if(new Set(arr).size!==arr.length){m.textContent="พบชื่อซ้ำ กรุณาตั้งชื่อให้ต่างกัน";return;}
+  if(!arr.every(nameOK)){m.textContent="ชื่อใช้ได้เฉพาะตัวอักษรไทย ตัวอักษรอังกฤษ ตัวเลข และเว้นวรรค (ไม่รองรับอีโมจิ)";return;}
+  m.textContent="";spStart(arr,spCodeV||randCode());
+  toast("ล็อกรายชื่อ "+arr.length+" คนแล้ว กดคัดลอกลิงก์เชิญเพื่อส่งให้เพื่อน");
+});
+$("spRestart").addEventListener("click",function(){
+  var keep=spList?spList.join("\n"):"";
+  spList=null;spCodeV=randCode();spHide();
+  $("spNames").value=keep;$("spPlay").hidden=true;$("spSetup").hidden=false;spCountRefresh();
+  try{location.hash="";}catch(e){}
+});
+$("spBack").addEventListener("click",function(){$("odd").hidden=true;$("join").hidden=false;});
+$("spMe").addEventListener("change",function(){spHide();spRender();});
+function spGo(d){spRound=Math.max(1,Math.min(99,spRound+d));spRev=false;spHide();spRender();}
+$("spPrev").addEventListener("click",function(){spGo(-1);});
+$("spNext").addEventListener("click",function(){spGo(1);});
+$("spShow").addEventListener("click",function(){
+  if(spShown){spHide();spRender();return;}
+  spShown=true;spRender();clearTimeout(spShowT);
+  spShowT=setTimeout(function(){spShown=false;spRender();},6000);
+});
+$("spReveal").addEventListener("click",function(){spRev=true;spHide();spRender();});
+$("spBoard").addEventListener("click",function(ev){
+  var b=ev.target.closest("button[data-i]");if(!b)return;
+  var i=parseInt(b.dataset.i,10),d=parseInt(b.dataset.d,10);
+  spScores[i]=Math.max(-99,Math.min(999,spScores[i]+d));spRender();
+});
+$("spReset").addEventListener("click",function(){spScores=[0,0,0,0,0,0,0,0];spRender();toast("ล้างคะแนนแล้ว");});
+$("spTimer").addEventListener("click",function(){
+  clearInterval(spTimerId);
+  var dur=Math.max(30,Math.min(900,parseInt($("spDur").value,10)||180));
+  spEnd=Date.now()+dur*1000;
+  var tick=function(){var r=Math.max(0,Math.ceil((spEnd-Date.now())/1000));$("spTime").textContent=fmt(r);if(r<=0){clearInterval(spTimerId);toast("หมดเวลาพูดใบ้ ถึงเวลาโหวต");}};
+  tick();spTimerId=setInterval(tick,500);
+});
+$("spCopy").addEventListener("click",function(){if(spList)copyText(BASE+"#"+spCodeText(),"คัดลอกลิงก์เชิญแล้ว ส่งให้เพื่อนได้ทันที");});
+$("spCopyCode").addEventListener("click",function(){if(spList)copyText(spCodeText(),"คัดลอกรหัสเชิญแล้ว ส่งให้เพื่อนวางในช่องรหัสเชิญ");});
+$("btnOdd").addEventListener("click",function(){openOdd(randCode(),null);});
+
 $("btnOffline").addEventListener("click",function(){openOffline(randCode(),null);});
 $("offBack").addEventListener("click",function(){$("offline").hidden=true;$("join").hidden=false;});
 $("inviteGo").addEventListener("click",function(){
   var r=parseInvite($("inviteIn").value);
   if(!r){$("inviteMsg").textContent="อ่านรหัสเชิญไม่ได้ กรุณาคัดลอกรหัสทั้งหมดมาวางอีกครั้ง หรือขอรหัสใหม่จากผู้เริ่มเกม";return;}
-  $("inviteMsg").textContent="";openOffline(r.code,r.names);
+  $("inviteMsg").textContent="";openInvite(r);
 });
 (function(){
   var oh=(location.hash||"").replace(/^#/,"");
   var r=parseInvite(oh);
-  if(r){openOffline(r.code,r.names);}
-  else if(/^[op]-/.test(oh)){
+  if(r){openInvite(r);}
+  else if(/^[ops]-/.test(oh)){
     $("inviteMsg").textContent="ลิงก์เชิญอ่านไม่ได้หรือถูกตัดทอน กรุณาขอรหัสเชิญจากผู้เริ่มเกมแล้ววางในช่องด้านบน";
   }
 })();
