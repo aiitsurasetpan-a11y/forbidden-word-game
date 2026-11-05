@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>เกมคำต้องห้าม</title>
+<meta name="author" content="Suraset Pantura">
+<meta name="description" content="เกมคำต้องห้ามภาษาไทย สำหรับผู้เล่น 2 ถึง 8 คน เล่นร่วมกันผ่านการโทร">
+<meta name="theme-color" content="#FFF28A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap">
+<style>
+html{color-scheme:light}
+body{margin:0}
+img{max-width:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+
+/* Layout concept, sticker-book game night. Chunky outlines, hard offset shadows, tilted player cards, a scrolling warning tape. */
+:root{
+  --bg:#FFF28A;color-scheme:light;--surface:#FFFFFF;--surface2:#F4F0FF;--ink:#16102B;--muted:#4B4468;--line:#16102B;--sh:#16102B;
+  --pink:#FF8EC0;--blue:#9DB0FF;--mint:#5CF0B8;--lilac:#D5C6FF;--hl:#FFFBD0;
+  --sign:#E3142F;--sign-soft:#FFE0E6;--ok:#0A7C52;--ok-soft:#CFF8E6;--on:#16102B;--focus:#3D5AFE;
+  --font:"IBM Plex Sans Thai","Noto Sans Thai",system-ui,sans-serif;
+  --shadow:4px 4px 0 var(--sh);--shadow-s:2px 2px 0 var(--sh);
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;font-weight:500;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 56px}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+h1{font-size:clamp(2rem,7.5vw,3.3rem);line-height:1.15;margin:0;font-weight:700;text-wrap:balance;text-shadow:3px 3px 0 var(--pink)}
+h2{display:inline-block;align-self:flex-start;font-size:1.05rem;margin:0;font-weight:700;background:var(--lilac);color:var(--on);border:3px solid var(--line);border-radius:999px;padding:2px 16px;box-shadow:var(--shadow-s);transform:rotate(-1.5deg)}
+p{margin:0}
+.sub{color:var(--ink);font-size:.98rem;font-weight:500}
+.note{color:var(--muted);font-size:.92rem;font-weight:500}
+.hero{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.hero .grow{flex:1 1 260px;min-width:0}
+.nosign{flex:none;width:34px;height:34px;border:4px solid var(--sign);border-radius:50%;position:relative;background:var(--surface)}
+.nosign::after{content:"";position:absolute;left:50%;top:3px;bottom:3px;width:4px;background:var(--sign);transform:translateX(-50%) rotate(45deg);border-radius:2px}
+.nosign.big{width:62px;height:62px;border-width:7px;transform:rotate(-8deg);box-shadow:var(--shadow)}
+.nosign.big::after{top:5px;bottom:5px;width:7px}
+.badge{background:var(--mint);color:var(--on);border:3px solid var(--line);border-radius:14px;padding:4px 14px;font-weight:700;box-shadow:var(--shadow-s);transform:rotate(4deg)}
+.tapewrap{overflow:hidden;border:3px solid var(--line);border-radius:12px;background:var(--ink);color:var(--bg)}
+.tape{display:flex;width:max-content;animation:tape 22s linear infinite}
+.tape span{padding:4px 18px;font-weight:700;letter-spacing:.06em;white-space:nowrap}
+@keyframes tape{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.panel{background:var(--surface);border:3px solid var(--line);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow);min-width:0}
+label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:.95rem;min-width:0}
+input,textarea,select{font:inherit;font-weight:500;color:var(--ink);background:var(--surface2);border:3px solid var(--line);border-radius:12px;padding:10px 12px;min-width:0;width:100%}
+input::placeholder,textarea::placeholder{color:var(--muted)}
+:focus-visible{outline:4px solid var(--focus);outline-offset:2px}
+button{font:inherit;font-weight:700;border-radius:14px;padding:10px 18px;border:3px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;box-shadow:var(--shadow);transition:transform .08s,box-shadow .08s}
+button:hover:not(:disabled){transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--sh)}
+button:active:not(:disabled){transform:translate(3px,3px);box-shadow:1px 1px 0 var(--sh)}
+button:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
+button.primary{background:var(--pink);color:var(--on)}
+button.ghost{background:var(--surface)}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.row>label{flex:1 1 200px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.steps{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:4px;color:var(--ink);font-size:.95rem}
+.msg{min-height:1.5em;font-size:.95rem;font-weight:700}
+.msg.err{color:var(--sign)}
+
+.bar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between}
+.roomtag{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.lbl{color:var(--ink);font-size:.88rem;font-weight:700}
+#roomCode{font-size:1.4rem;letter-spacing:.14em;font-weight:700;background:var(--hl);border:3px solid var(--line);border-radius:12px;padding:0 12px;box-shadow:var(--shadow-s)}
+.status{display:flex;gap:8px;align-items:center;font-size:.9rem;font-weight:700}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--muted);border:3px solid var(--line)}
+.dot.on{background:var(--mint)}
+.dot.off{background:var(--sign)}
+
+.phase{font-weight:700;font-size:1.3rem}
+.clock{display:flex;flex-direction:column;gap:10px;background:var(--surface2);border:3px solid var(--line);border-radius:18px;padding:12px 16px}
+#time{font-size:clamp(3rem,14vw,4.6rem);line-height:1;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.03em}
+#time.low{color:var(--sign)}
+.track{height:18px;background:var(--surface);border:3px solid var(--line);border-radius:999px;overflow:hidden}
+.track i{display:block;height:100%;width:100%;background-color:var(--sign);background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.4) 0 8px,transparent 8px 16px);transform-origin:left;transition:transform .9s linear}
+.hostctl{display:flex;flex-direction:column;gap:12px;border-top:3px dashed var(--line);padding-top:14px}
+.hostctl .row>label{flex:1 1 160px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.card{--tint:var(--pink);background:var(--surface);border:3px solid var(--line);border-radius:20px;padding:0 0 14px;display:flex;flex-direction:column;gap:12px;min-width:0;box-shadow:var(--shadow);overflow:hidden}
+.card:nth-child(4n+2){--tint:var(--mint)}
+.card:nth-child(4n+3){--tint:var(--blue)}
+.card:nth-child(4n+4){--tint:var(--lilac)}
+.card:nth-child(odd){transform:rotate(-.6deg)}
+.card:nth-child(even){transform:rotate(.6deg)}
+.card.me{box-shadow:6px 6px 0 var(--sh)}
+.card>*:not(.chead){margin-inline:14px}
+.chead{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 14px;background:var(--tint);color:var(--on);border-bottom:3px solid var(--line)}
+.pname{font-weight:700;overflow-wrap:anywhere;font-size:1.05rem}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.tag{font-size:.75rem;font-weight:700;color:var(--ink);background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:0 8px}
+.pscore{min-width:2.6rem;text-align:center;font-size:1.4rem;font-weight:700;line-height:1.5;font-variant-numeric:tabular-nums;background:var(--surface);color:var(--ink);border:3px solid var(--line);border-radius:12px;padding:0 8px}
+.pscore.neg{color:var(--sign)}
+.pscore.pos{color:var(--ok)}
+.plate{border:4px solid var(--sign);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--sign-soft)}
+.plate.hidden{border:4px dashed var(--line);background-color:var(--surface2);background-image:repeating-linear-gradient(135deg,transparent 0 10px,rgba(127,127,127,.16) 10px 20px)}
+.pw{display:flex;gap:10px;align-items:center}
+.pw .nosign{width:26px;height:26px;border-width:4px}
+.pw .nosign::after{top:2px;bottom:2px;width:4px}
+.word{font-size:clamp(1.6rem,5.4vw,2.1rem);font-weight:700;line-height:1.2;overflow-wrap:anywhere;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:.82rem;font-weight:700;background:var(--surface);color:var(--ink);border:2px solid var(--line);border-radius:999px;padding:1px 11px}
+.cbtns{display:flex;flex-wrap:wrap;gap:10px}
+.cbtns button{flex:1 1 auto}
+.caught{font-size:.82rem;font-weight:700;color:var(--sign)}
+
+.board{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.board li{display:grid;grid-template-columns:2.4rem 1fr auto;gap:10px;align-items:center;background:var(--surface);border:3px solid var(--line);border-radius:16px;padding:8px 12px;box-shadow:var(--shadow-s)}
+.board li:first-child{background:var(--hl)}
+.board .rk{width:2rem;height:2rem;display:grid;place-items:center;font-weight:700;background:var(--surface2);color:var(--ink);border:3px solid var(--line);border-radius:50%;font-variant-numeric:tabular-nums}
+.board li:nth-child(1) .rk{background:var(--pink);color:var(--on)}
+.board li:nth-child(2) .rk{background:var(--mint);color:var(--on)}
+.board li:nth-child(3) .rk{background:var(--blue);color:var(--on)}
+.board .sc{font-weight:700;font-size:1.2rem;font-variant-numeric:tabular-nums}
+.board .nm{overflow-wrap:anywhere;font-weight:700}
+.board.sb li{grid-template-columns:1fr auto auto}
+.adj{display:flex;gap:8px}
+.adj button{padding:2px 14px;font-size:1.2rem;box-shadow:var(--shadow-s)}
+
+details.rules{background:var(--surface);border:3px solid var(--line);border-radius:20px;padding:12px 18px;box-shadow:var(--shadow)}
+details.rules summary{cursor:pointer;font-weight:700}
+details.rules ol{margin:12px 0 0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}
+
+.catbanner{align-self:flex-start;background:var(--mint);color:var(--on);border:3px solid var(--line);border-radius:14px;padding:4px 16px;font-weight:700;font-size:1.1rem;box-shadow:var(--shadow-s);transform:rotate(-1deg)}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:min(92vw,520px);background:var(--ink);color:var(--bg);border:3px solid var(--line);padding:12px 16px;border-radius:16px;font-weight:700;z-index:20;box-shadow:var(--shadow)}
+@media (max-width:520px){
+  .cards{grid-template-columns:1fr}
+  .card:nth-child(n){transform:none}
+}
+@media (prefers-reduced-motion:reduce){.tape{animation:none}.track i{transition:none}button{transition:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <span class="nosign big" aria-hidden="true"></span>
+    <div class="grow">
+      <h1>เกมคำต้องห้าม</h1>
+      <p class="sub">Forbidden Word, ผู้เล่น 2 ถึง 8 คน เล่นร่วมกันผ่านการโทรเสียงหรือวิดีโอ</p>
+    </div>
+    <span class="badge">2 ถึง 8 คน</span>
+  </header>
+  <div class="tapewrap" aria-hidden="true"><div class="tape"><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span></div></div>
+
+  <!-- หน้าแรก -->
+  <section id="join" class="panel">
+    <h2>เริ่มเล่น</h2>
+    <ol class="steps">
+      <li>ผู้เริ่มเกมกรอกรายชื่อผู้เล่นทุกคน (2 ถึง 8 คน) แล้วกดล็อกรายชื่อ จะได้ลิงก์เชิญและรหัสเชิญ</li>
+      <li>ส่งลิงก์เชิญให้เพื่อน เพื่อนไม่ต้องกรอกรายชื่ออีก</li>
+      <li>ทุกคนเลือกว่าตนเองเป็นผู้เล่นคนที่เท่าไร แต่ละคนจะเห็นคำต้องห้ามของผู้อื่น แต่ไม่เห็นคำของตนเอง</li>
+      <li>พูดคุยกันผ่านการโทรเสียงหรือวิดีโอ และใช้คำใบ้บนการ์ดชวนคุยเรื่องเดียวกัน</li>
+    </ol>
+    <div class="btns"><button id="btnOffline" class="primary" type="button">เริ่มสร้างห้องและกรอกรายชื่อ</button></div>
+    <div style="display:flex;flex-direction:column;gap:8px;border-top:3px dashed var(--line);padding-top:14px">
+      <label for="inviteIn">มีรหัสเชิญหรือลิงก์เชิญจากเพื่อน วางที่นี่
+        <input id="inviteIn" type="text" autocomplete="off" placeholder="เช่น p-1234-...">
+      </label>
+      <div class="btns"><button id="inviteGo" class="primary" type="button">เปิดด้วยรหัสเชิญ</button></div>
+      <p id="inviteMsg" class="msg err"></p>
+    </div>
+  </section>
+
+  <details class="rules">
+    <summary>กติกาการเล่น</summary>
+    <ol>
+      <li>ผู้เล่นแต่ละคนมีคำต้องห้ามหนึ่งคำ ผู้เล่นอื่นทุกคนเห็นคำนั้นพร้อมคำใบ้ แต่เจ้าของคำมองไม่เห็น ทุกคนในรอบเดียวกันได้คำจากหมวดเดียวกัน ซึ่งแสดงชื่อหมวดไว้ให้ทุกคนเห็น เพื่อให้ชวนคุยเรื่องเดียวกันได้</li>
+      <li>ทุกคนสนทนากันผ่านการโทรตลอดเวลาของรอบ ผู้เล่นพยายามชวนคุยให้ผู้อื่นเผลอพูดคำต้องห้ามของตนเอง</li>
+      <li>เมื่อได้ยินผู้ใดพูดคำต้องห้ามของตนเอง ผู้จับได้รับ 1 คะแนน ผู้ถูกจับถูกหัก 1 คะแนน โดยผู้ดูแลคะแนนกดปุ่ม + และ − ที่กระดานคะแนน</li>
+      <li>ผู้เล่นทายคำต้องห้ามของตนเองถูกต้อง ได้ 2 คะแนน</li>
+      <li>เมื่อหมดเวลา (ค่าเริ่มต้น 120 วินาที) ทุกคนกด "รอบถัดไป" พร้อมกัน จะได้คำและหมวดใหม่ จำนวนรอบตกลงกันเอง หากไม่กำหนด เล่นได้ไม่จำกัด</li>
+      <li>เวลาและคะแนนนับแยกในแต่ละเครื่อง จึงควรตกลงให้ผู้เล่นหนึ่งคนเป็นผู้ดูแลคะแนนและบอกเวลาเริ่มผ่านการโทร</li>
+      <li>ผู้มีคะแนนรวมสูงสุดเมื่อจบเกมเป็นผู้ชนะ</li>
+    </ol>
+  </details>
+
+  <!-- ห้องเล่น -->
+  <section id="offline" hidden style="display:flex;flex-direction:column;gap:16px">
+    <div id="offSetup" class="panel">
+      <h2>ตั้งค่ารายชื่อผู้เล่น</h2>
+      <p class="note">ผู้เริ่มเกมกรอกรายชื่อผู้เล่นทุกคนรวมตัวท่านเอง บรรทัดละหนึ่งชื่อ จำนวน 2 ถึง 8 คน เมื่อกดล็อก จำนวนผู้เล่นจะเท่ากับรายชื่อและแก้ไขไม่ได้ จากนั้นส่งลิงก์เชิญให้เพื่อน เพื่อนไม่ต้องกรอกรายชื่ออีก</p>
+      <label for="offNames">รายชื่อผู้เล่น (ชื่อสมมติ ไม่เกิน 12 ตัวอักษรต่อชื่อ)
+        <textarea id="offNames" rows="7" placeholder="ตัวอย่าง&#10;แมวเหมียว&#10;หมีพูห์&#10;ปลาทอง&#10;กระต่ายน้อย"></textarea>
+      </label>
+      <p id="offCount" class="note">จำนวนผู้เล่นขณะนี้ 0 คน (สูงสุด 8 คน)</p>
+      <div class="btns">
+        <button id="offLock" class="primary" type="button">ล็อกรายชื่อและสร้างลิงก์เชิญ</button>
+        <button id="offBack" class="ghost" type="button">กลับหน้าแรก</button>
+      </div>
+      <p id="offMsg" class="msg err"></p>
+    </div>
+
+    <div id="offPlay" hidden style="display:flex;flex-direction:column;gap:16px">
+      <div class="panel">
+        <h2>รหัสห้อง (Room Code) <span id="offCodeShow" style="letter-spacing:.12em"></span></h2>
+        <p id="offLocked" class="note"></p>
+        <label for="offMe">ท่านเป็นผู้เล่นคนที่ (ต้องเลือกก่อนจึงจะเห็นคำ)
+          <select id="offMe"></select>
+        </label>
+        <label for="offCodeBox">รหัสเชิญ (ใช้แทนลิงก์ได้ หากลิงก์เปิดไม่ได้)
+          <input id="offCodeBox" type="text" readonly>
+        </label>
+        <div class="btns">
+          <button id="offCopy" class="primary" type="button">คัดลอกลิงก์เชิญ</button>
+          <button id="offCopyCode" class="ghost" type="button">คัดลอกรหัสเชิญ</button>
+          <button id="offRestart" class="ghost" type="button">ปลดล็อกเพื่อแก้ไขรายชื่อ</button>
+        </div>
+        <p class="note">ทุกคนต้องเลือกลำดับผู้เล่นไม่ซ้ำกัน และใช้ลิงก์หรือรหัสเชิญเดียวกันเท่านั้น หากมีการแก้ไขรายชื่อ ต้องส่งลิงก์ใหม่ให้ทุกคน</p>
+      </div>
+      <div class="panel">
+        <div class="btns" style="align-items:center">
+          <button id="offPrev" class="ghost" type="button">รอบก่อนหน้า</button>
+          <strong id="offRound">รอบที่ 1</strong>
+          <button id="offNext" class="ghost" type="button">รอบถัดไป</button>
+        </div>
+        <div id="offCat" class="catbanner"></div>
+        <div class="row">
+          <label for="offDur">เวลาต่อรอบ (วินาที)
+            <input id="offDur" type="number" min="20" max="600" step="10" value="120" inputmode="numeric">
+          </label>
+          <div class="btns" style="align-items:center">
+            <button id="offTimer" class="primary" type="button">เริ่มจับเวลา</button>
+            <strong id="offTime" style="font-size:1.6rem;font-variant-numeric:tabular-nums"></strong>
+          </div>
+        </div>
+      </div>
+      <div id="offCards" class="cards"></div>
+      <h2>คะแนน (นับในเครื่องนี้)</h2>
+      <ol id="offBoard" class="board sb"></ol>
+      <div class="btns"><button id="offReset" class="ghost" type="button">ล้างคะแนนทั้งหมด</button></div>
+    </div>
+  </section>
+</main>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+"use strict";
+var RAW = `อาหาร|ข้าว|หุง,นา,ช้อน,อิ่ม,เมล็ด
+อาหาร|ไข่|ไก่,ต้ม,ดาว,เปลือก,ฟอง
+อาหาร|กุ้ง|เปลือก,เผา,ต้มยำ,ทะเล,ตัวงอ
+อาหาร|ผัก|เขียว,สลัด,ตลาด,ล้าง,เด็กไม่ชอบ
+อาหาร|ส้ม|เปลือก,วิตามิน,เปรี้ยว,คั้น,ผลไม้
+อาหาร|กล้วย|ลิง,ปอก,เหลือง,หวี,ทอด
+อาหาร|ทุเรียน|หนาม,กลิ่น,หมอนทอง,ราชา,เนื้อ
+อาหาร|น้ำ|ดื่ม,ขวด,ใส,แก้ว,ก๊อก
+อาหาร|นม|วัว,แก้ว,ขาว,เด็ก,กล่อง
+อาหาร|กาแฟ|คาเฟอีน,ตื่น,เมล็ด,ร้อน,แก้ว
+อาหาร|ชา|ใบ,ร้อน,เย็น,ถ้วย,ไข่มุก
+อาหาร|เค้ก|วันเกิด,เทียน,ครีม,หวาน,อบ
+อาหาร|ขนม|หวาน,เด็ก,ถุง,ขบเคี้ยว,ร้านค้า
+อาหาร|ซุป|ร้อน,ช้อน,น้ำใส,ข้น,ชาม
+อาหาร|พิซซ่า|ชีส,อิตาลี,แป้ง,ส่งถึงบ้าน,ชิ้น
+อาหาร|ช็อกโกแลต|โกโก้,หวาน,ขม,วาเลนไทน์,แท่ง
+สัตว์|หมู|ปิ้ง,สามชั้น,ตัวอ้วน,ฟาร์ม,กรอบ
+สัตว์|ไก่|ขัน,ปีก,ทอด,ย่าง,เล้า
+สัตว์|ปลา|ว่ายน้ำ,ก้าง,เบ็ด,เหงือก,ทะเล
+สัตว์|ช้าง|งวง,งา,ตัวใหญ่,อ้อย,สัญลักษณ์
+สัตว์|แมว|เหมียว,หนวด,หนู,ปลาทู,ขนนุ่ม
+สัตว์|หมา|เห่า,กระดูก,หาง,เดินเล่น,เจ้าของ
+สัตว์|ม้า|ขี่,วิ่ง,แข่ง,แผงคอ,ฟาร์ม
+สัตว์|วัว|นม,เขา,ทุ่งหญ้า,สเต็ก,มู
+สัตว์|ควาย|นา,โคลน,เขา,ทุ่ง,ไถนา
+สัตว์|เป็ด|ก๊าบ,บ่อน้ำ,ย่าง,ปากแบน,ไข่
+สัตว์|นก|ปีก,บิน,รัง,กรง,ร้อง
+สัตว์|กบ|กระโดด,ฝน,สีเขียว,ร้อง,บ่อ
+สัตว์|งู|เลื้อย,พิษ,ลิ้น,กลัว,ลอกคราบ
+สัตว์|ลิง|กล้วย,ต้นไม้,ซน,หาง,ห้อย
+สัตว์|เสือ|ลาย,ป่า,คำราม,กรง,ดุร้าย
+สัตว์|สิงโต|แผงคอ,ราชา,คำราม,ทุ่งหญ้า,สวนสัตว์
+สัตว์|หนู|แมว,ชีส,ฟัน,รู,ตัวเล็ก
+สัตว์|ยุง|กัด,ไข้เลือดออก,มุ้ง,ตบ,เสียงหึ่ง
+สัตว์|มด|ขนม,แถว,น้ำตาล,รัง,กัด
+สัตว์|ปู|ก้าม,เดินข้าง,ทะเล,เปลือก,ต้ม
+สัตว์|จระเข้|ฟัน,แม่น้ำ,หนังหนา,ปากกว้าง,กระเป๋า
+สัตว์|ยีราฟ|คอยาว,ลายจุด,สูง,ใบไม้,สวนสัตว์
+สัตว์|ฉลาม|ฟัน,ทะเล,ครีบ,กลัว,ว่ายน้ำ
+สัตว์|โลมา|ทะเล,ฉลาด,กระโดด,โชว์,ว่ายน้ำ
+สัตว์|หมี|น้ำผึ้ง,ขั้วโลก,ตุ๊กตา,จำศีล,ป่า
+สถานที่|บ้าน|หลังคา,ประตู,ครอบครัว,ผ่อน,กลับ
+สถานที่|วัด|พระ,ทำบุญ,เจดีย์,ระฆัง,ไหว้
+สถานที่|ตลาด|ต่อราคา,แม่ค้า,ผักสด,เช้า,ถุง
+สถานที่|ทะเล|คลื่น,ทราย,เกลือ,เรือ,หาด
+สถานที่|ป่า|ต้นไม้,สัตว์,ผจญภัย,หมอก,ลึก
+สถานที่|เกาะ|ทะเล,เรือ,หาด,เที่ยว,ล้อมรอบ
+สถานที่|ถนน|รถ,ไฟแดง,ลาดยาง,เลน,รถติด
+สถานที่|สะพาน|ข้าม,แม่น้ำ,เชื่อม,ลอด,ยาว
+สถานที่|สวน|ต้นไม้,รดน้ำ,ดอกไม้,ผลไม้,เดินเล่น
+สถานที่|ห้อง|ประตู,เตียง,นอน,เช่า,ล็อก
+สถานที่|ครัว|เตา,หม้อ,ปรุง,กลิ่น,แม่
+สถานที่|สนาม|หญ้า,กีฬา,วิ่ง,เตะบอล,ขอบ
+สถานที่|ห้าง|แอร์,ลดราคา,บันไดเลื่อน,โรงหนัง,ช้อป
+สถานที่|ร้าน|ขาย,เจ้าของ,ลูกค้า,ป้าย,เปิด
+สถานที่|เมือง|ตึก,ผู้คน,หลวง,จังหวัด,ใหญ่
+สถานที่|ถ้ำ|มืด,ค้างคาว,หินงอก,ลึก,ผจญภัย
+สถานที่|ทุ่ง|นา,กว้าง,หญ้า,เกี่ยว,ลมพัด
+สถานที่|ตึก|สูง,ชั้น,ลิฟต์,ปูน,ออฟฟิศ
+สถานที่|คุก|ขัง,ตะแกรง,โทษ,ตำรวจ,ผู้ร้าย
+สถานที่|โบสถ์|คริสต์,ระฆัง,แต่งงาน,ไม้กางเขน,สวดมนต์
+ของใช้|โต๊ะ|ขา,หนังสือ,อาหาร,ไม้,เก้าอี้
+ของใช้|เก้าอี้|นั่ง,ขา,พนักพิง,โต๊ะ,ล้อ
+ของใช้|เตียง|นอน,ฟูก,ผ้าปู,ห้องนอน,ตื่น
+ของใช้|หมอน|หนุน,นอน,นุ่ม,ปลอก,ข้าง
+ของใช้|ร่ม|ฝน,กาง,แดด,ด้าม,พับ
+ของใช้|กุญแจ|ล็อก,ไข,พวง,หาย,ประตู
+ของใช้|แว่น|ตา,เลนส์,กรอบ,สายตา,ใส่
+ของใช้|เสื้อ|ใส่,ซัก,ไซส์,แขน,ตัว
+ของใช้|กางเกง|ขา,ใส่,ยีนส์,เข็มขัด,กระเป๋า
+ของใช้|หมวก|หัว,แดด,ใส่,ปีก,กันน็อก
+ของใช้|กระเป๋า|สะพาย,ซิป,ใส่ของ,เป้,ถือ
+ของใช้|นาฬิกา|เวลา,เข็ม,ปลุก,ข้อมือ,เดิน
+ของใช้|ปากกา|เขียน,หมึก,ปลอก,ลายเซ็น,กระดาษ
+ของใช้|สมุด|เขียน,จด,หน้า,ปก,นักเรียน
+ของใช้|มีด|คม,หั่น,ครัว,เขียง,ผลไม้
+ของใช้|ช้อน|ซุป,กิน,ส้อม,โลหะ,ตัก
+ของใช้|จาน|ข้าว,ล้าง,แตก,ช้อน,เสิร์ฟ
+ของใช้|แก้ว|น้ำ,ใส,แตก,ดื่ม,เหยือก
+ของใช้|ขวด|น้ำ,ฝา,แก้ว,พลาสติก,รีไซเคิล
+ของใช้|ทีวี|รีโมท,จอ,ละคร,ช่อง,ข่าว
+ของใช้|แอร์|เย็น,รีโมท,ค่าไฟ,ห้อง,ล้าง
+ของใช้|ตู้|เย็น,เสื้อผ้า,ล็อก,ใส่ของ,ประตู
+ของใช้|กระจก|ส่อง,ใส,แตก,หน้า,เงา
+ของใช้|ประตู|เปิด,ปิด,กุญแจ,บาน,เคาะ
+ของใช้|เงิน|ธนาคาร,เหรียญ,ซื้อ,กระเป๋า,เดือน
+ของใช้|บัตร|ประชาชน,เครดิต,รูด,ใบ,ชื่อ
+ของใช้|ตั๋ว|หนัง,เครื่องบิน,ซื้อ,ใบ,เข้า
+ของใช้|ตุ๊กตา|เด็ก,หมี,กอด,ของเล่น,ผ้า
+ยานพาหนะ|รถ|ล้อ,ขับ,น้ำมัน,ติด,จอด
+ยานพาหนะ|เรือ|ท่า,พาย,น้ำ,กัปตัน,ลอย
+ยานพาหนะ|แท็กซี่|มิเตอร์,โบก,ไฟ,คนขับ,ค่า
+ยานพาหนะ|จรวด|อวกาศ,ปล่อย,ดวงจันทร์,นักบินอวกาศ,นับถอยหลัง
+ยานพาหนะ|ลิฟต์|ชั้น,กด,ตึก,ปุ่ม,ติด
+ยานพาหนะ|แพ|ลอย,ล่อง,ริมน้ำ,ไม้ไผ่,กระชัง
+ธรรมชาติ|ฝน|ร่ม,เปียก,เมฆ,ฟ้าร้อง,ท่วม
+ธรรมชาติ|ลม|พัด,เย็น,พายุ,ว่าว,ใบไม้
+ธรรมชาติ|ไฟ|เทียน,ร้อน,ไหม้,ควัน,ดับ
+ธรรมชาติ|ดิน|ปลูก,โคลน,ต้นไม้,ขุด,ปุ๋ย
+ธรรมชาติ|หิน|แข็ง,ก้อน,ภูเขา,เขวี้ยง,กรวด
+ธรรมชาติ|ทราย|ทะเล,หาด,ปราสาท,เม็ด,ละเอียด
+ธรรมชาติ|คลื่น|ทะเล,ซัด,โต้,เล่นกระดาน,สูง
+ธรรมชาติ|เมฆ|ฟ้า,ฝน,ขาว,ลอย,เครื่องบิน
+ธรรมชาติ|ฟ้า|สีน้ำเงิน,เมฆ,แลบ,ใส,ผ่า
+ธรรมชาติ|ดาว|กลางคืน,ส่องแสง,ตก,ท้องฟ้า,ดวง
+ธรรมชาติ|หมอก|เช้า,ภูเขา,หนา,มัว,หนาว
+ธรรมชาติ|หิมะ|หนาว,ขาว,ปั้น,ตก,ญี่ปุ่น
+ธรรมชาติ|คลอง|เรือ,น้ำ,ขุด,ริม,สะพาน
+ธรรมชาติ|หญ้า|เขียว,ตัด,สนาม,วัว,ปลูก
+ธรรมชาติ|ใบ|ต้นไม้,ร่วง,เขียว,ชา,ไม้
+ธรรมชาติ|ราก|ต้นไม้,ดิน,หยั่ง,ลึก,ฐาน
+ธรรมชาติ|กุหลาบ|ดอก,หนาม,วาเลนไทน์,แดง,หอม
+ธรรมชาติ|รุ้ง|ฝน,สีสัน,เจ็ดสี,หลังฝน,ท้องฟ้า
+บุคคล|หมอ|โรงพยาบาล,เสื้อกาวน์,ยา,ตรวจ,หูฟัง
+บุคคล|ครู|สอน,กระดาน,การบ้าน,โรงเรียน,ไม้เรียว
+บุคคล|ตำรวจ|จับ,ใบสั่ง,เครื่องแบบ,ผู้ร้าย,ด่าน
+บุคคล|ทหาร|เกณฑ์,เครื่องแบบ,ค่าย,ผมสั้น,ประเทศ
+บุคคล|พ่อ|ครอบครัว,บ้าน,ลูก,ขับรถ,เงิน
+บุคคล|แม่|เลี้ยงดู,ทำกับข้าว,บ่น,ห่วง,ลูก
+บุคคล|ลูก|พ่อแม่,เด็ก,เลี้ยง,โต,เกิด
+บุคคล|ยาย|หลาน,ตา,บ้านนอก,แก่,ขนม
+บุคคล|พี่|น้อง,โต,ดูแล,ทะเลาะ,รุ่น
+บุคคล|น้อง|พี่,เล็ก,ทะเลาะ,เกิดทีหลัง,ขอ
+บุคคล|เพื่อน|สนิท,ชวน,แชท,โรงเรียน,ความลับ
+บุคคล|แฟน|รัก,ง้อ,ทะเลาะ,ของขวัญ,คบ
+บุคคล|ผี|กลัว,ศาล,วิญญาณ,หนัง,กลางคืน
+บุคคล|พระ|วัด,ทำบุญ,บิณฑบาต,จีวร,สวดมนต์
+บุคคล|เด็ก|เล่น,โรงเรียน,ร้องไห้,ซน,ตัวเล็ก
+บุคคล|ดารา|ละคร,แฟนคลับ,ถ่ายรูป,จอ,ชื่อดัง
+ร่างกาย|มือ|นิ้ว,ล้าง,จับ,ถุง,ซ้ายขวา
+ร่างกาย|เท้า|ส้น,ถุง,เหม็น,เดิน,นิ้ว
+ร่างกาย|ตา|เห็น,ดำ,กะพริบ,แว่น,ปิด
+ร่างกาย|หู|ฟัง,ได้ยิน,เจาะ,เพลง,เสียง
+ร่างกาย|จมูก|หายใจ,กลิ่น,น้ำมูก,ดม,โด่ง
+ร่างกาย|ปาก|พูด,กิน,ลิป,ฟัน,ลิ้น
+ร่างกาย|ฟัน|แปรง,ผุ,ยิ้ม,หมอ,จัด
+ร่างกาย|ผม|สระ,หวี,ตัด,ยาว,ดำ
+ร่างกาย|นิ้ว|มือ,ชี้,แหวน,เล็บ,ห้า
+ร่างกาย|เล็บ|ตัด,ทา,ยาว,นิ้ว,สี
+ร่างกาย|ท้อง|หิว,อิ่ม,ปวด,กระเพาะ,กิน
+ร่างกาย|เลือด|แดง,บริจาค,เข็ม,เจาะ,หัวใจ
+ร่างกาย|กระดูก|หัก,หมา,แข็ง,เอกซเรย์,โครง
+ร่างกาย|ลิ้น|รส,ปาก,แลบ,ชิม,พูด
+ร่างกาย|คิ้ว|ตา,เขียน,ขมวด,ถอน,ดก
+ความรู้สึก|หิว|ท้องร้อง,กิน,อาหาร,ตอนดึก,ว่าง
+ความรู้สึก|ง่วง|หาว,นอน,ตาปรือ,กาแฟ,ประชุม
+ความรู้สึก|เหนื่อย|หอบ,พัก,หมดแรง,งานหนัก,นอน
+ความรู้สึก|กลัว|ผี,สั่น,ตกใจ,มืด,หนี
+ความรู้สึก|เศร้า|ร้องไห้,เหงา,เพลง,ฝน,ผิดหวัง
+ความรู้สึก|โกรธ|ตะโกน,หน้าแดง,ใจเย็น,ทะเลาะ,เสียงดัง
+ความรู้สึก|รัก|หัวใจ,แฟน,คิดถึง,ดอกไม้,โรแมนติก
+ความรู้สึก|เบื่อ|ว่าง,เหงา,ซ้ำซาก,หาว,เล่นมือถือ
+ความรู้สึก|ร้อน|เหงื่อ,แอร์,เมษายน,แดด,อบอ้าว
+ความรู้สึก|หนาว|เสื้อโค้ท,ผ้าห่ม,สั่น,ลมเย็น,ภูเขา
+ความรู้สึก|ปวด|หัว,ยา,ท้อง,หมอ,ทน
+ความรู้สึก|ฝัน|นอน,ตื่น,ผี,กลางคืน,เพ้อ
+การกระทำ|นอน|เตียง,หมอน,กรน,ตื่นสาย,ดึก
+การกระทำ|กิน|ข้าว,อิ่ม,หิว,ร้าน,ช้อน
+การกระทำ|เต้น|เพลง,จังหวะ,ฟลอร์,ลีลา,หัวใจ
+การกระทำ|สอบ|อ่านหนังสือ,ติว,กระดาษคำตอบ,เกรด,ตก
+การกระทำ|โกหก|จริง,จับได้,หน้าแดง,ความลับ,จมูกยาว
+การกระทำ|ขโมย|ตำรวจ,จับ,ผู้ร้าย,ลักทรัพย์,คุก
+ชีวิตประจำวัน|เวลา|นาฬิกา,ช้า,เร็ว,สาย,นาที
+ชีวิตประจำวัน|เช้า|ตื่น,กาแฟ,ตลาด,อาทิตย์,ไก่ขัน
+ชีวิตประจำวัน|คืน|มืด,นอน,ดาว,ดึก,เงียบ
+ชีวิตประจำวัน|หวย|เลข,ซื้อ,ถูก,วันที่หนึ่ง,สลาก
+ชีวิตประจำวัน|หนี้|เงิน,ผ่อน,ดอกเบี้ย,ทวง,ธนาคาร
+ชีวิตประจำวัน|งาน|ออฟฟิศ,เงินเดือน,เจ้านาย,ประชุม,ส่ง
+ชีวิตประจำวัน|เกม|เล่น,จอย,แพ้,ชนะ,ตัวละคร
+ชีวิตประจำวัน|หนัง|โรง,ป๊อปคอร์น,ดู,ผี,ตั๋ว
+ชีวิตประจำวัน|เพลง|ร้อง,ฟัง,ทำนอง,ศิลปิน,ฮิต
+ชีวิตประจำวัน|ข่าว|ทีวี,ด่วน,พิธีกร,ปลอม,หนังสือพิมพ์
+ชีวิตประจำวัน|แชท|ข้อความ,อ่านแล้ว,กลุ่ม,ตอบ,สติกเกอร์
+ชีวิตประจำวัน|เน็ต|ไวไฟ,ช้า,สัญญาณ,หมด,ค่า
+ชีวิตประจำวัน|ไลน์|แชท,กลุ่ม,สติกเกอร์,ส่ง,อ่านแล้ว
+ชีวิตประจำวัน|รหัส|ลืม,ตั้ง,ล็อกอิน,ตัวเลข,ลับ
+ชีวิตประจำวัน|ไวรัส|เชื้อ,คอม,ระบาด,หน้ากาก,ฉีด
+ชีวิตประจำวัน|สงกรานต์|สาดน้ำ,เมษายน,แป้ง,รดน้ำดำหัว,หยุดยาว
+ยานพาหนะ|ตุ๊กตุ๊ก|สามล้อ,นักท่องเที่ยว,เสียงดัง,โบก,เมืองท่องเที่ยว
+ยานพาหนะ|บัส|ทัวร์,นั่งไกล,คนเยอะ,ที่นั่ง,เดินทาง
+ยานพาหนะ|เกวียน|วัว,ล้อไม้,ชนบท,ขนข้าว,สมัยก่อน
+ยานพาหนะ|บอลลูน|ลอยฟ้า,ตะกร้า,ลมร้อน,ท่องเที่ยว,สีสัน
+ยานพาหนะ|เฮลิคอปเตอร์|ใบพัด,ดาดฟ้า,กู้ภัย,เสียงดัง,บินต่ำ
+ยานพาหนะ|กระเช้า|ภูเขา,สาย,ลอย,ขึ้นเขา,วิว
+ยานพาหนะ|มอไซค์|สองล้อ,วิน,หมวกกันน็อก,เร่งเครื่อง,ซ้อนท้าย
+ยานพาหนะ|สกูตเตอร์|สองล้อ,เด็ก,เท้าถีบ,ริมทาง,ไฟฟ้า
+การกระทำ|วิ่ง|ออกกำลัง,เหนื่อย,สนาม,รองเท้า,แข่ง
+การกระทำ|กระโดด|ขา,สูง,เชือก,ตัวลอย,ตื่นเต้น
+การกระทำ|อ่าน|หนังสือ,ตา,นิทาน,ห้องสมุด,เสียง
+การกระทำ|วาด|ภาพ,ดินสอ,สี,ศิลปิน,กระดาษ
+การกระทำ|ซื้อ|เงิน,ร้าน,จ่าย,ของ,ลดราคา
+การกระทำ|ขาย|ร้าน,กำไร,ลูกค้า,ตลาด,โฆษณา
+การกระทำ|เล่น|เกม,สนุก,เด็ก,ชิงช้า,กีฬา
+การกระทำ|ร้อง|เพลง,คาราโอเกะ,ไมค์,เสียง,เวที
+การกระทำ|ขับ|รถ,พวงมาลัย,คันเร่ง,ถนน,เมา
+ความรู้สึก|เหงา|คนเดียว,ว่าง,คิดถึง,กลางคืน,ห้อง
+ความรู้สึก|เครียด|งาน,สอบ,หัว,นอนไม่หลับ,กดดัน
+ความรู้สึก|สนุก|หัวเราะ,เพื่อน,ปาร์ตี้,ไม่อยากกลับ,เฮฮา
+ความรู้สึก|อาย|หน้าแดง,คนมอง,เขิน,ซ่อน,พูดไม่ออก`;
+var WORDS = RAW.trim().split("\n").map(function(l){var p=l.split("|");return {c:p[0],w:p[1],h:p[2].split(",")};});
+var N = WORDS.length;
+var $ = function(id){return document.getElementById(id);};
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function hash(s){
+  var h1=0xdeadbeef,h2=0x41c6ce57;
+  for(var i=0;i<s.length;i++){var ch=s.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677);}
+  h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);
+  h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);
+  return (h2>>>0)*4294967296+(h1>>>0);
+}
+function fmt(t){var m=Math.floor(t/60),s=t%60;return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");}
+function norm(s){return String(s).replace(/\s+/g,"").toLowerCase();}
+function toast(t){var el=$("toast");el.textContent=t;el.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(function(){el.hidden=true;},4500);}
+function randCode(){return String(1000+Math.floor(Math.random()*9000));}
+function cleanCode(v){return String(v||"").replace(/[^0-9]/g,"").slice(0,4);}
+
+
+var CATS=[];WORDS.forEach(function(x){if(CATS.indexOf(x.c)<0)CATS.push(x.c);});
+var catCache={};
+function catPlan(c){
+  if(catCache[c])return catCache[c];
+  var order=CATS.slice().sort(function(a,b){var d=hash(c+"|c|"+a)-hash(c+"|c|"+b);return d||(a<b?-1:1);});
+  var pools={};
+  order.forEach(function(cat){
+    var idx=[];WORDS.forEach(function(x,i){if(x.c===cat)idx.push(i);});
+    idx.sort(function(a,b){var d=hash(c+"|w|"+a)-hash(c+"|w|"+b);return d||(a-b);});
+    pools[cat]=idx;
+  });
+  catCache[c]={order:order,pools:pools};return catCache[c];
+}
+function roundCat(c,r){var pl=catPlan(c);return pl.order[(r-1)%pl.order.length];}
+function roundWord(c,r,slot){
+  var pl=catPlan(c),pool=pl.pools[roundCat(c,r)],k=Math.floor((r-1)/pl.order.length);
+  return WORDS[pool[(k*8+(slot-1))%pool.length]];
+}
+
+var BASE=location.href.split("#")[0];
+
+/* ---------- โหมดสำรอง ---------- */
+var offRound=1,offEnd=0,offTimerId=0,offScores=[0,0,0,0,0,0,0,0],offList=null,offCodeV="";
+var B62="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+function nameOK(s){for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(!((c>=32&&c<=126)||(c>=0x0E00&&c<=0x0E7F)))return false;}return true;}
+function packNames(list){
+  var bytes=[];
+  list.forEach(function(n,k){
+    if(k>0)bytes.push(10);
+    for(var i=0;i<n.length;i++){var c=n.charCodeAt(i);bytes.push(c<128?c:(0x80+(c-0x0E00)));}
+  });
+  var v=0n;bytes.forEach(function(b){v=(v<<8n)|BigInt(b);});
+  var s="";if(v===0n)return "0";
+  while(v>0n){s=B62[Number(v%62n)]+s;v=v/62n;}
+  return s;
+}
+function unpackNames(s){
+  try{
+    var v=0n;for(var i=0;i<s.length;i++){var d=B62.indexOf(s[i]);if(d<0)return null;v=v*62n+BigInt(d);}
+    var bytes=[];while(v>0n){bytes.unshift(Number(v&255n));v=v>>8n;}
+    var cur="",out=[];
+    bytes.forEach(function(b){if(b===10){out.push(cur);cur="";}else if(b>=128){cur+=String.fromCharCode(0x0E00+(b-0x80));}else{cur+=String.fromCharCode(b);}});
+    out.push(cur);
+    out=out.map(function(x){return x.trim().slice(0,12);}).filter(Boolean).slice(0,8);
+    return out.length>=2?out:null;
+  }catch(e){return null;}
+}
+function offCodeText(){return "p-"+offCodeV+"-"+packNames(offList);}
+function offLink(){return BASE+"#"+offCodeText();}
+function hexDec(h){try{var a=[];for(var i=0;i<h.length;i+=2)a.push(parseInt(h.substr(i,2),16));return new TextDecoder("utf-8").decode(new Uint8Array(a)).slice(0,12);}catch(e){return "";}}
+/* อ่านรหัสเชิญจากลิงก์หรือข้อความที่วาง รองรับรูปแบบเก่าด้วย */
+function parseInvite(raw){
+  var s=String(raw||"").trim();
+  var k=s.indexOf("#");if(k>=0)s=s.slice(k+1);
+  s=s.replace(/\s+/g,"");
+  var m;
+  if((m=/^p-([0-9]{4})-([0-9A-Za-z]+)$/.exec(s))){var nm=unpackNames(m[2]);return nm?{code:m[1],names:nm}:null;}
+  if((m=/^o-([0-9]{4})-([2-8])$/.exec(s))){var a=[];for(var i=1;i<=parseInt(m[2],10);i++)a.push("ผู้เล่น "+i);return {code:m[1],names:a};}
+  if((m=/^o-([0-9]{4})((?:-(?:[0-9a-f]{2})+)+)$/.exec(s))){var n2=m[2].slice(1).split("-").map(hexDec).filter(Boolean).slice(0,8);return n2.length>=2?{code:m[1],names:n2}:null;}
+  return null;
+}
+function parseNames(){return $("offNames").value.split(/\n+/).map(function(s){return s.trim().replace(/\s+/g," ").slice(0,12);}).filter(Boolean);}
+function offCountRefresh(){$("offCount").textContent="จำนวนผู้เล่นขณะนี้ "+parseNames().length+" คน (สูงสุด 8 คน)";}
+function offRender(){
+  if(!offList)return;
+  var labels=offList,n=labels.length,me=$("offMe");
+  var cur=parseInt(me.value,10)||0,sig=labels.join("|");
+  if(me.dataset.sig!==sig){
+    me.innerHTML='<option value="">เลือกลำดับของท่าน</option>'+labels.map(function(l,i){return '<option value="'+(i+1)+'">'+(i+1)+' ('+esc(l)+')</option>';}).join("");
+    me.dataset.sig=sig;me.value=(cur>=1&&cur<=n)?String(cur):"";
+  }
+  var mine=parseInt(me.value,10)||0;
+  $("offCodeShow").textContent=offCodeV;$("offCodeBox").value=offCodeText();
+  $("offLocked").textContent="ล็อกรายชื่อแล้ว "+n+" คน ได้แก่ "+labels.map(function(l,i){return (i+1)+". "+l;}).join(", ");
+  $("offRound").textContent="รอบที่ "+offRound;
+  $("offCat").textContent="หมวดของรอบนี้: "+roundCat(offCodeV,offRound);
+  $("offCards").innerHTML=!mine?'<p class="note">กรุณาเลือก "ท่านเป็นผู้เล่นคนที่" ก่อน ระบบจึงจะแสดงคำต้องห้ามของผู้อื่น</p>':labels.map(function(l,i){
+    var slot=i+1;
+    if(slot===mine)return '<div class="card me"><div class="chead"><div class="pname">'+esc(l)+'</div><span class="tag">ท่าน</span></div><div class="plate hidden"><div class="pw"><span class="nosign" aria-hidden="true"></span><div class="word">ซ่อนจากท่าน</div></div></div></div>';
+    var w=roundWord(offCodeV,offRound,slot);
+    return '<div class="card"><div class="chead"><div class="pname">'+esc(l)+'</div></div><div class="plate"><div class="pw"><span class="nosign" aria-hidden="true"></span><div class="word">'+esc(w.w)+'</div></div><div class="chips">'+w.h.map(function(h){return '<span class="chip">'+esc(h)+'</span>';}).join("")+'</div></div></div>';
+  }).join("");
+  $("offBoard").innerHTML=labels.map(function(l,i){
+    return '<li><span class="nm">'+esc(l)+(i+1===mine?' (ท่าน)':'')+'</span><span class="sc">'+offScores[i]+'</span><span class="adj"><button type="button" data-i="'+i+'" data-d="-1" aria-label="หัก 1 คะแนน '+esc(l)+'">−</button><button type="button" data-i="'+i+'" data-d="1" aria-label="เพิ่ม 1 คะแนน '+esc(l)+'">+</button></span></li>';
+  }).join("");
+}
+function startLocked(arr,c){
+  offList=arr.slice(0,8);offCodeV=c;offRound=1;offScores=[0,0,0,0,0,0,0,0];
+  $("offSetup").hidden=true;$("offPlay").hidden=false;
+  try{location.hash=offCodeText();}catch(e){}
+  offRender();
+}
+function openOffline(c,list){
+  $("join").hidden=true;$("offline").hidden=false;
+  offCodeV=c||randCode();
+  if(list&&list.length>=2){startLocked(list,offCodeV);}
+  else{offList=null;$("offPlay").hidden=true;$("offSetup").hidden=false;offCountRefresh();}
+}
+$("offNames").addEventListener("input",offCountRefresh);
+$("offLock").addEventListener("click",function(){
+  var arr=parseNames(),m=$("offMsg");
+  if(arr.length<2){m.textContent="ต้องมีผู้เล่นอย่างน้อย 2 คน";return;}
+  if(arr.length>8){m.textContent="รายชื่อเกิน 8 คน กรุณาลดให้เหลือไม่เกิน 8 คน";return;}
+  if(new Set(arr).size!==arr.length){m.textContent="พบชื่อซ้ำ กรุณาตั้งชื่อให้ต่างกัน";return;}
+  if(!arr.every(nameOK)){m.textContent="ชื่อใช้ได้เฉพาะตัวอักษรไทย ตัวอักษรอังกฤษ ตัวเลข และเว้นวรรค (ไม่รองรับอีโมจิ)";return;}
+  m.textContent="";
+  startLocked(arr,offCodeV||randCode());
+  toast("ล็อกรายชื่อ "+arr.length+" คนแล้ว กดคัดลอกลิงก์เชิญเพื่อส่งให้เพื่อน");
+});
+$("offRestart").addEventListener("click",function(){
+  var keep=offList?offList.join("\n"):"";
+  offList=null;offCodeV=randCode();
+  $("offNames").value=keep;$("offPlay").hidden=true;$("offSetup").hidden=false;offCountRefresh();
+  try{location.hash="";}catch(e){}
+});
+$("offMe").addEventListener("change",offRender);
+$("offBoard").addEventListener("click",function(ev){
+  var b=ev.target.closest("button[data-i]");if(!b)return;
+  var i=parseInt(b.dataset.i,10),d=parseInt(b.dataset.d,10);
+  offScores[i]=Math.max(-99,Math.min(999,offScores[i]+d));offRender();
+});
+$("offReset").addEventListener("click",function(){offScores=[0,0,0,0,0,0,0,0];offRender();toast("ล้างคะแนนแล้ว");});
+$("offPrev").addEventListener("click",function(){offRound=Math.max(1,offRound-1);offRender();});
+$("offNext").addEventListener("click",function(){offRound=Math.min(99,offRound+1);offRender();});
+$("offTimer").addEventListener("click",function(){
+  clearInterval(offTimerId);
+  var dur=Math.max(20,Math.min(600,parseInt($("offDur").value,10)||120));
+  offEnd=Date.now()+dur*1000;
+  var tick=function(){var r=Math.max(0,Math.ceil((offEnd-Date.now())/1000));$("offTime").textContent=fmt(r);if(r<=0){clearInterval(offTimerId);toast("หมดเวลา");}};
+  tick();offTimerId=setInterval(tick,500);
+});
+function copyText(txt,okMsg){
+  var fb=function(){toast("คัดลอกอัตโนมัติไม่สำเร็จ กรุณาแตะค้างที่ช่องรหัสเชิญด้านบนแล้วเลือกคัดลอก");};
+  try{navigator.clipboard.writeText(txt).then(function(){toast(okMsg);},fb);}catch(e){fb();}
+}
+$("offCopy").addEventListener("click",function(){if(offList)copyText(offLink(),"คัดลอกลิงก์เชิญแล้ว ส่งให้เพื่อนได้ทันที");});
+$("offCopyCode").addEventListener("click",function(){if(offList)copyText(offCodeText(),"คัดลอกรหัสเชิญแล้ว ส่งให้เพื่อนวางในช่องรหัสเชิญ");});
+$("btnOffline").addEventListener("click",function(){openOffline(randCode(),null);});
+$("offBack").addEventListener("click",function(){$("offline").hidden=true;$("join").hidden=false;});
+$("inviteGo").addEventListener("click",function(){
+  var r=parseInvite($("inviteIn").value);
+  if(!r){$("inviteMsg").textContent="อ่านรหัสเชิญไม่ได้ กรุณาคัดลอกรหัสทั้งหมดมาวางอีกครั้ง หรือขอรหัสใหม่จากผู้เริ่มเกม";return;}
+  $("inviteMsg").textContent="";openOffline(r.code,r.names);
+});
+(function(){
+  var oh=(location.hash||"").replace(/^#/,"");
+  var r=parseInvite(oh);
+  if(r){openOffline(r.code,r.names);}
+  else if(/^[op]-/.test(oh)){
+    $("inviteMsg").textContent="ลิงก์เชิญอ่านไม่ได้หรือถูกตัดทอน กรุณาขอรหัสเชิญจากผู้เริ่มเกมแล้ววางในช่องด้านบน";
+  }
+})();
+
+})();
+</script>
+</body>
+</html>
