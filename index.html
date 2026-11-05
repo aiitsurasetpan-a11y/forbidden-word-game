@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>เกมวงเพื่อน</title>
+<title>ซี้เจ๋ง เกมวงเพื่อน</title>
 <meta name="author" content="Suraset Pantura">
-<meta name="description" content="เกมคำภาษาไทยสำหรับเล่นกับเพื่อน 2 ถึง 8 คน ประกอบด้วยเกมคำต้องห้ามและเกมหาคนแปลก เล่นร่วมกันผ่านการโทร">
+<meta name="description" content="ซี้เจ๋ง รวมเกมวงเพื่อนภาษาไทย 6 เกม ได้แก่ คำต้องห้าม หาคนแปลก Spyfall Insider Sounds Fishy และ Werewolf เล่นกับเพื่อนผ่านการโทรเสียงหรือวิดีโอ">
 <meta name="theme-color" content="#FFF28A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -130,7 +130,6 @@ details.rules ol{margin:12px 0 0;padding-left:1.3em;display:flex;flex-direction:
 .catbanner{align-self:flex-start;background:var(--mint);color:var(--on);border:3px solid var(--line);border-radius:14px;padding:4px 16px;font-weight:700;font-size:1.1rem;box-shadow:var(--shadow-s);transform:rotate(-1deg)}
 .gamegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
 .gcard{background:var(--surface2);border:3px solid var(--line);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow-s)}
-.gcard:nth-child(2){background:var(--hl)}
 .gcard h3{margin:0;font-size:1.25rem;font-weight:700}
 .gcard button{align-self:flex-start}
 .plate.ok{border-color:var(--ok);background:var(--ok-soft)}
@@ -138,6 +137,31 @@ details.rules ol{margin:12px 0 0;padding-left:1.3em;display:flex;flex-direction:
 .res{display:flex;flex-direction:column;gap:6px;background:var(--hl);border:3px solid var(--line);border-radius:16px;padding:12px 14px}
 .res strong{font-size:1.15rem}
 #toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:min(92vw,520px);background:var(--ink);color:var(--bg);border:3px solid var(--line);padding:12px 16px;border-radius:16px;font-weight:700;z-index:20;box-shadow:var(--shadow)}
+
+/* ซี้เจ๋ง, โลโก้ CJ และการ์ดเลือกเกม */
+.logo{flex:none;width:68px;height:68px;display:flex;align-items:center;justify-content:center;gap:1px;background:var(--pink);border:4px solid var(--line);border-radius:20px;font-weight:700;font-size:1.8rem;line-height:1;transform:rotate(-8deg);box-shadow:var(--shadow)}
+.logo b{font-weight:700}
+.logo b:last-child{color:#fff;text-shadow:2px 2px 0 var(--ink)}
+.gcard{position:relative}
+.gtop{display:flex;gap:12px;align-items:center}
+.gic{flex:none;width:72px;height:72px;border:3px solid var(--line);border-radius:18px;display:grid;place-items:center;box-shadow:var(--shadow-s);transform:rotate(-4deg);background:var(--surface)}
+.gic svg{width:54px;height:54px;display:block}
+.g1 .gic{background:var(--sign-soft)}
+.g2 .gic{background:var(--lilac)}
+.g3 .gic{background:var(--blue)}
+.g4 .gic{background:var(--mint)}
+.g5 .gic{background:var(--hl)}
+.g6 .gic{background:var(--pink)}
+.gcard:nth-child(even) .gic{transform:rotate(4deg)}
+.gmeta{display:flex;gap:6px;flex-wrap:wrap}
+.gcard .btns{margin-top:auto}
+.mine .word.sm{font-size:clamp(1.4rem,6vw,2rem)}
+.locb{padding:2px 12px;box-shadow:none;font-size:.9rem;border-width:2px;border-radius:999px;font-weight:600}
+.locb.struck{text-decoration:line-through;opacity:.5;background:var(--surface2)}
+.locs{display:flex;flex-wrap:wrap;gap:8px}
+.board li.dead{opacity:.55}
+.board.sb .adj button.wide{font-size:.9rem;padding:2px 12px}
+.script{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:4px;font-size:.95rem}
 @media (max-width:520px){
   .cards{grid-template-columns:1fr}
   .card:nth-child(n){transform:none}
@@ -148,33 +172,59 @@ details.rules ol{margin:12px 0 0;padding-left:1.3em;display:flex;flex-direction:
 <body>
 <main class="wrap">
   <header class="hero">
-    <span class="nosign big" aria-hidden="true"></span>
+    <span class="logo" aria-hidden="true"><b>C</b><b>J</b></span>
     <div class="grow">
-      <h1>เกมวงเพื่อน</h1>
-      <p class="sub">เกมคำภาษาไทยสำหรับเล่นกับเพื่อน เล่นร่วมกันผ่านการโทรเสียงหรือวิดีโอ</p>
+      <h1>ซี้เจ๋ง</h1>
+      <p class="sub">เกมวงเพื่อน เล่นกับเพื่อน 2 ถึง 12 คน ผ่านการโทรเสียงหรือวิดีโอ</p>
     </div>
-    <span class="badge">2 ถึง 8 คน</span>
+    <span class="badge">6 เกม</span>
   </header>
-  <div class="tapewrap" aria-hidden="true"><div class="tape"><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span><span>ห้ามพูดคำนี้</span></div></div>
+  <div class="tapewrap" aria-hidden="true"><div class="tape"><span>ห้ามพูดคำนี้</span><span>ใครคือสายลับ</span><span>มีคนแปลกในวง</span><span>ใครรู้คำตอบจริง</span><span>คืนนี้หมาป่าตื่น</span><span>ใครคือคนใน</span><span>ซี้เจ๋ง ซี้ทั้งวง</span><span>ห้ามพูดคำนี้</span><span>ใครคือสายลับ</span><span>มีคนแปลกในวง</span><span>ใครรู้คำตอบจริง</span><span>คืนนี้หมาป่าตื่น</span><span>ใครคือคนใน</span><span>ซี้เจ๋ง ซี้ทั้งวง</span><span>ห้ามพูดคำนี้</span><span>ใครคือสายลับ</span><span>มีคนแปลกในวง</span><span>ใครรู้คำตอบจริง</span><span>คืนนี้หมาป่าตื่น</span><span>ใครคือคนใน</span><span>ซี้เจ๋ง ซี้ทั้งวง</span><span>ห้ามพูดคำนี้</span><span>ใครคือสายลับ</span><span>มีคนแปลกในวง</span><span>ใครรู้คำตอบจริง</span><span>คืนนี้หมาป่าตื่น</span><span>ใครคือคนใน</span><span>ซี้เจ๋ง ซี้ทั้งวง</span></div></div>
 
   <!-- หน้าแรก -->
   <section id="join" class="panel">
     <h2>เลือกเกม</h2>
     <div class="gamegrid">
-      <div class="gcard">
-        <h3>เกมคำต้องห้าม</h3>
+      <div class="gcard g1">
+        <div class="gtop"><span class="gic"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M8 10h48a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4H30L18 56V44H8a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z" fill="#fff" stroke="#16102B" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="27" r="11" fill="none" stroke="#E3142F" stroke-width="5"/><path d="M24 35L40 19" stroke="#E3142F" stroke-width="5" stroke-linecap="round"/></svg></span><h3>เกมคำต้องห้าม</h3></div>
+        <div class="gmeta"><span class="tag">2 ถึง 8 คน</span><span class="tag">ง่าย</span></div>
         <p class="note">ทุกคนเห็นคำของเพื่อน ยกเว้นคำของตนเอง ชวนเพื่อนคุยให้เผลอพูดคำต้องห้ามของตัวเอง</p>
-        <button id="btnOffline" class="primary" type="button">เล่นเกมนี้</button>
+        <div class="btns"><button id="btnOffline" class="primary" type="button">เล่นเกมนี้</button></div>
       </div>
-      <div class="gcard">
-        <h3>เกมหาคนแปลก</h3>
+      <div class="gcard g2">
+        <div class="gtop"><span class="gic"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="16" cy="18" r="10" fill="#9DB0FF" stroke="#16102B" stroke-width="3"/><circle cx="48" cy="18" r="10" fill="#9DB0FF" stroke="#16102B" stroke-width="3"/><circle cx="16" cy="46" r="10" fill="#9DB0FF" stroke="#16102B" stroke-width="3"/><circle cx="48" cy="46" r="10" fill="#FF8EC0" stroke="#16102B" stroke-width="3"/><text x="48" y="52" text-anchor="middle" font-size="16" font-weight="700" fill="#16102B">?</text></svg></span><h3>เกมหาคนแปลก</h3></div>
+        <div class="gmeta"><span class="tag">3 ถึง 8 คน</span><span class="tag">ง่าย</span></div>
         <p class="note">ทุกคนได้คำเดียวกัน ยกเว้น 1 คนที่ได้คำคล้ายกันแต่ไม่เหมือน ผลัดกันพูดใบ้แล้วโหวตหาคนแปลก</p>
-        <button id="btnOdd" class="primary" type="button">เล่นเกมนี้</button>
+        <div class="btns"><button id="btnOdd" class="primary" type="button">เล่นเกมนี้</button></div>
+      </div>
+      <div class="gcard g3">
+        <div class="gtop"><span class="gic"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><ellipse cx="30" cy="22" rx="24" ry="6" fill="#16102B"/><path d="M18 22c0-12 5-16 12-16s12 4 12 16z" fill="#7A63B8" stroke="#16102B" stroke-width="3" stroke-linejoin="round"/><rect x="19" y="15" width="22" height="5" fill="#FF8EC0"/><circle cx="28" cy="43" r="10" fill="#fff" fill-opacity=".75" stroke="#16102B" stroke-width="4"/><path d="M35 50l14 11" stroke="#16102B" stroke-width="5" stroke-linecap="round"/></svg></span><h3>Spyfall (สายลับในวง)</h3></div>
+        <div class="gmeta"><span class="tag">3 ถึง 8 คน</span><span class="tag">ปานกลาง</span></div>
+        <p class="note">ทุกคนรู้สถานที่และบทบาทของตน ยกเว้นสายลับ 1 คน ถามตอบกันเพื่อหาสายลับ ขณะที่สายลับพยายามเดาสถานที่</p>
+        <div class="btns"><button id="btnSpy" class="primary" type="button">เล่นเกมนี้</button></div>
+      </div>
+      <div class="gcard g4">
+        <div class="gtop"><span class="gic"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M4 32C12 18 22 12 32 12s20 6 28 20c-8 14-18 20-28 20S12 46 4 32z" fill="#fff" stroke="#16102B" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="32" r="12" fill="#5CF0B8" stroke="#16102B" stroke-width="3"/><circle cx="32" cy="32" r="5" fill="#16102B"/><circle cx="36" cy="28" r="2" fill="#fff"/></svg></span><h3>Insider (ผู้แฝงตัว)</h3></div>
+        <div class="gmeta"><span class="tag">4 ถึง 8 คน</span><span class="tag">ปานกลาง</span></div>
+        <p class="note">สามัญชนถามผู้ตอบเพื่อทายคำลับ แต่มีผู้แฝงตัวที่รู้คำและแอบชี้นำ ทายคำให้ได้แล้วจับผู้แฝงตัวให้ถูก</p>
+        <div class="btns"><button id="btnIns" class="primary" type="button">เล่นเกมนี้</button></div>
+      </div>
+      <div class="gcard g5">
+        <div class="gtop"><span class="gic"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M6 32C14 18 30 14 42 24L56 12v40L42 40C30 50 14 46 6 32z" fill="#9DB0FF" stroke="#16102B" stroke-width="3" stroke-linejoin="round"/><circle cx="17" cy="29" r="3" fill="#16102B"/><path d="M28 25c3 5 3 10 0 15" fill="none" stroke="#16102B" stroke-width="3" stroke-linecap="round"/><path d="M8 38c3 2 6 2 8 0" fill="none" stroke="#16102B" stroke-width="2.5" stroke-linecap="round"/></svg></span><h3>Sounds Fishy (ตอบหลอก)</h3></div>
+        <div class="gmeta"><span class="tag">4 ถึง 8 คน</span><span class="tag">ง่าย</span></div>
+        <p class="note">ทุกคนตอบคำถามความรู้ทั่วไป แต่มีเพียงคนเดียวที่รู้คำตอบจริง ผู้ทายต้องแยกให้ออกว่าใครตอบหลอก</p>
+        <div class="btns"><button id="btnFish" class="primary" type="button">เล่นเกมนี้</button></div>
+      </div>
+      <div class="gcard g6">
+        <div class="gtop"><span class="gic"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="51" cy="13" r="9" fill="#FFF28A" stroke="#16102B" stroke-width="3"/><path d="M10 56V24l10 9 7-10h10l7 10 10-9v32l-8 6H18z" fill="#D5C6FF" stroke="#16102B" stroke-width="3" stroke-linejoin="round"/><circle cx="25" cy="42" r="3" fill="#16102B"/><circle cx="43" cy="42" r="3" fill="#16102B"/><path d="M29 52l5 5 5-5z" fill="#16102B"/></svg></span><h3>Werewolf (มนุษย์หมาป่า)</h3></div>
+        <div class="gmeta"><span class="tag">6 ถึง 12 คน</span><span class="tag">มีผู้ดำเนินเกม</span></div>
+        <p class="note">มีผู้ดำเนินเกมนำเกมกลางคืนและกลางวัน หมาป่าซ่อนตัวในหมู่ชาวบ้าน ชาวบ้านต้องหาหมาป่าให้พบก่อนถูกกำจัด</p>
+        <div class="btns"><button id="btnWolf" class="primary" type="button">เล่นเกมนี้</button></div>
       </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:8px;border-top:3px dashed var(--line);padding-top:14px">
-      <label for="inviteIn">มีรหัสเชิญหรือลิงก์เชิญจากเพื่อน วางที่นี่ (ใช้ได้กับทั้งสองเกม)
-        <input id="inviteIn" type="text" autocomplete="off" placeholder="เช่น p-1234-... หรือ s-1234-...">
+      <label for="inviteIn">มีรหัสเชิญหรือลิงก์เชิญจากเพื่อน วางที่นี่ (ใช้ได้กับทุกเกม)
+        <input id="inviteIn" type="text" autocomplete="off" placeholder="เช่น p-1234-... หรือ y-1234-...">
       </label>
       <div class="btns"><button id="inviteGo" class="primary" type="button">เปิดด้วยรหัสเชิญ</button></div>
       <p id="inviteMsg" class="msg err"></p>
@@ -182,37 +232,12 @@ details.rules ol{margin:12px 0 0;padding-left:1.3em;display:flex;flex-direction:
   </section>
 
   <details class="rules">
-    <summary>วิธีเริ่มเล่น (ทั้งสองเกม)</summary>
+    <summary>วิธีเริ่มเล่น (ทุกเกม)</summary>
     <ol>
       <li>ผู้เริ่มเกมเลือกเกม กรอกรายชื่อผู้เล่นทุกคนรวมตัวท่านเอง แล้วกดล็อกรายชื่อ จะได้ลิงก์เชิญและรหัสเชิญ</li>
       <li>ส่งลิงก์เชิญให้เพื่อน เพื่อนไม่ต้องกรอกรายชื่ออีก หากลิงก์เปิดไม่ได้ ให้เพื่อนวางรหัสเชิญในช่องด้านบน</li>
       <li>ทุกคนเลือกว่าตนเองเป็นผู้เล่นคนที่เท่าไร และกด "รอบถัดไป" พร้อมกันทุกครั้งที่เริ่มรอบใหม่</li>
-      <li>พูดคุยกันผ่านการโทรเสียงหรือวิดีโอ เวลาและคะแนนนับแยกในแต่ละเครื่อง จึงควรตกลงให้ผู้เล่นหนึ่งคนเป็นผู้ดูแลคะแนน</li>
-    </ol>
-  </details>
-
-  <details class="rules">
-    <summary>กติกาเกมคำต้องห้าม</summary>
-    <ol>
-      <li>ผู้เล่นแต่ละคนมีคำต้องห้ามหนึ่งคำ ผู้เล่นอื่นทุกคนเห็นคำนั้นพร้อมคำใบ้ แต่เจ้าของคำมองไม่เห็น ทุกคนในรอบเดียวกันได้คำจากหมวดเดียวกัน ซึ่งแสดงชื่อหมวดไว้ให้ทุกคนเห็น เพื่อให้ชวนคุยเรื่องเดียวกันได้</li>
-      <li>ทุกคนสนทนากันผ่านการโทรตลอดเวลาของรอบ ผู้เล่นพยายามชวนคุยให้ผู้อื่นเผลอพูดคำต้องห้ามของตนเอง</li>
-      <li>เมื่อได้ยินผู้ใดพูดคำต้องห้ามของตนเอง ผู้จับได้รับ 1 คะแนน ผู้ถูกจับถูกหัก 1 คะแนน โดยผู้ดูแลคะแนนกดปุ่ม + และ − ที่กระดานคะแนน</li>
-      <li>ผู้เล่นทายคำต้องห้ามของตนเองถูกต้อง ได้ 2 คะแนน</li>
-      <li>เมื่อหมดเวลา (ค่าเริ่มต้น 120 วินาที) ทุกคนกด "รอบถัดไป" พร้อมกัน จะได้คำและหมวดใหม่ จำนวนรอบตกลงกันเอง หากไม่กำหนด เล่นได้ไม่จำกัด</li>
-      <li>ผู้มีคะแนนรวมสูงสุดเมื่อจบเกมเป็นผู้ชนะ</li>
-    </ol>
-  </details>
-
-  <details class="rules">
-    <summary>กติกาเกมหาคนแปลก</summary>
-    <ol>
-      <li>ผู้เล่นทุกคนได้คำหนึ่งคำ ทุกคนได้คำเดียวกัน ยกเว้นคนแปลก 1 คนที่ได้คำคล้ายกันแต่ไม่เหมือน ผู้เล่นไม่ทราบว่าตนเองเป็นคนแปลกหรือไม่ ระบบแสดงเฉพาะหมวดของรอบให้ทุกคนเห็น</li>
-      <li>ทุกคนกด "แสดงคำของฉัน" เพื่อดูคำของตนเองอย่างลับๆ คำจะซ่อนเองอัตโนมัติ ห้ามพูดคำของตนเองตรงๆ</li>
-      <li>ผลัดกันพูดใบ้ตามลำดับที่แสดง คนละหนึ่งประโยคสั้นๆ วนอย่างน้อย 2 รอบหรือจนหมดเวลา คำใบ้ต้องไม่ใช้คำนั้นตรงๆ</li>
-      <li>ฟังคำใบ้ของทุกคนแล้วสังเกตว่าใครใบ้ต่างจากพวก หากท่านรู้สึกว่าคำใบ้ของตนเองไม่เข้ากับผู้อื่น ท่านอาจเป็นคนแปลก ให้ปรับคำใบ้ให้กลมกลืนกับกลุ่ม</li>
-      <li>เมื่อหมดเวลา ทุกคนนับสามแล้วชี้ผู้ที่สงสัยที่สุดพร้อมกัน หรือพิมพ์ชื่อในแชท ผู้ที่ได้คะแนนโหวตมากที่สุดคือผู้ถูกจับ</li>
-      <li>กด "เฉลยผลรอบนี้" เมื่อโหวตเสร็จแล้วเท่านั้น หากจับถูก ผู้เล่นที่ไม่ใช่คนแปลกทุกคนได้ 1 คะแนน และคนแปลกมีโอกาสทายคำของกลุ่ม ถ้าทายถูกได้ 2 คะแนน หากจับผิดหรือจับไม่ได้ คนแปลกได้ 3 คะแนน</li>
-      <li>ผู้ดูแลคะแนนกด + และ − ที่กระดานคะแนน เมื่อเล่นครบรอบเท่าจำนวนผู้เล่น ทุกคนจะได้เป็นคนแปลกคนละ 1 ครั้งเท่ากัน</li>
+      <li>พูดคุยกันผ่านการโทรเสียงหรือวิดีโอ เวลาและคะแนนนับแยกในแต่ละเครื่อง จึงควรตกลงให้ผู้เล่นหนึ่งคนเป็นผู้ดูแลคะแนน กติกาของแต่ละเกมแสดงอยู่ในหน้าของเกมนั้น</li>
     </ol>
   </details>
 
@@ -271,6 +296,17 @@ details.rules ol{margin:12px 0 0;padding-left:1.3em;display:flex;flex-direction:
       <ol id="offBoard" class="board sb"></ol>
       <div class="btns"><button id="offReset" class="ghost" type="button">ล้างคะแนนทั้งหมด</button></div>
     </div>
+  <details class="rules">
+    <summary>กติกาเกมคำต้องห้าม</summary>
+    <ol>
+      <li>ผู้เล่นแต่ละคนมีคำต้องห้ามหนึ่งคำ ผู้เล่นอื่นทุกคนเห็นคำนั้นพร้อมคำใบ้ แต่เจ้าของคำมองไม่เห็น ทุกคนในรอบเดียวกันได้คำจากหมวดเดียวกัน ซึ่งแสดงชื่อหมวดไว้ให้ทุกคนเห็น เพื่อให้ชวนคุยเรื่องเดียวกันได้</li>
+      <li>ทุกคนสนทนากันผ่านการโทรตลอดเวลาของรอบ ผู้เล่นพยายามชวนคุยให้ผู้อื่นเผลอพูดคำต้องห้ามของตนเอง</li>
+      <li>เมื่อได้ยินผู้ใดพูดคำต้องห้ามของตนเอง ผู้จับได้รับ 1 คะแนน ผู้ถูกจับถูกหัก 1 คะแนน โดยผู้ดูแลคะแนนกดปุ่ม + และ − ที่กระดานคะแนน</li>
+      <li>ผู้เล่นทายคำต้องห้ามของตนเองถูกต้อง ได้ 2 คะแนน</li>
+      <li>เมื่อหมดเวลา (ค่าเริ่มต้น 120 วินาที) ทุกคนกด "รอบถัดไป" พร้อมกัน จะได้คำและหมวดใหม่ จำนวนรอบตกลงกันเอง หากไม่กำหนด เล่นได้ไม่จำกัด</li>
+      <li>ผู้มีคะแนนรวมสูงสุดเมื่อจบเกมเป็นผู้ชนะ</li>
+    </ol>
+  </details>
   </section>
   <!-- เกมหาคนแปลก -->
   <section id="odd" hidden style="display:flex;flex-direction:column;gap:16px">
@@ -345,6 +381,99 @@ details.rules ol{margin:12px 0 0;padding-left:1.3em;display:flex;flex-direction:
       <ol id="spBoard" class="board sb"></ol>
       <div class="btns"><button id="spReset" class="ghost" type="button">ล้างคะแนนทั้งหมด</button></div>
     </div>
+  <details class="rules">
+    <summary>กติกาเกมหาคนแปลก</summary>
+    <ol>
+      <li>ผู้เล่นทุกคนได้คำหนึ่งคำ ทุกคนได้คำเดียวกัน ยกเว้นคนแปลก 1 คนที่ได้คำคล้ายกันแต่ไม่เหมือน ผู้เล่นไม่ทราบว่าตนเองเป็นคนแปลกหรือไม่ ระบบแสดงเฉพาะหมวดของรอบให้ทุกคนเห็น</li>
+      <li>ทุกคนกด "แสดงคำของฉัน" เพื่อดูคำของตนเองอย่างลับๆ คำจะซ่อนเองอัตโนมัติ ห้ามพูดคำของตนเองตรงๆ</li>
+      <li>ผลัดกันพูดใบ้ตามลำดับที่แสดง คนละหนึ่งประโยคสั้นๆ วนอย่างน้อย 2 รอบหรือจนหมดเวลา คำใบ้ต้องไม่ใช้คำนั้นตรงๆ</li>
+      <li>ฟังคำใบ้ของทุกคนแล้วสังเกตว่าใครใบ้ต่างจากพวก หากท่านรู้สึกว่าคำใบ้ของตนเองไม่เข้ากับผู้อื่น ท่านอาจเป็นคนแปลก ให้ปรับคำใบ้ให้กลมกลืนกับกลุ่ม</li>
+      <li>เมื่อหมดเวลา ทุกคนนับสามแล้วชี้ผู้ที่สงสัยที่สุดพร้อมกัน หรือพิมพ์ชื่อในแชท ผู้ที่ได้คะแนนโหวตมากที่สุดคือผู้ถูกจับ</li>
+      <li>กด "เฉลยผลรอบนี้" เมื่อโหวตเสร็จแล้วเท่านั้น หากจับถูก ผู้เล่นที่ไม่ใช่คนแปลกทุกคนได้ 1 คะแนน และคนแปลกมีโอกาสทายคำของกลุ่ม ถ้าทายถูกได้ 2 คะแนน หากจับผิดหรือจับไม่ได้ คนแปลกได้ 3 คะแนน</li>
+      <li>ผู้ดูแลคะแนนกด + และ − ที่กระดานคะแนน เมื่อเล่นครบรอบเท่าจำนวนผู้เล่น ทุกคนจะได้เป็นคนแปลกคนละ 1 ครั้งเท่ากัน</li>
+    </ol>
+  </details>
+  </section>
+  <!-- เกมกลาง, Spyfall Insider Sounds Fishy Werewolf -->
+  <section id="gx" hidden style="display:flex;flex-direction:column;gap:16px">
+    <div id="gxSetup" class="panel">
+      <h2 id="gxTitle">ตั้งค่ารายชื่อผู้เล่น</h2>
+      <p id="gxNote" class="note"></p>
+      <label for="gxNames">รายชื่อผู้เล่น (ชื่อสมมติ ไม่เกิน 12 ตัวอักษรต่อชื่อ)
+        <textarea id="gxNames" rows="8" placeholder="ตัวอย่าง&#10;แมวเหมียว&#10;หมีพูห์&#10;ปลาทอง&#10;กระต่ายน้อย"></textarea>
+      </label>
+      <p id="gxCount" class="note"></p>
+      <div class="btns">
+        <button id="gxLock" class="primary" type="button">ล็อกรายชื่อและสร้างลิงก์เชิญ</button>
+        <button id="gxBack" class="ghost" type="button">กลับหน้าแรก</button>
+      </div>
+      <p id="gxMsg" class="msg err"></p>
+    </div>
+
+    <div id="gxPlay" hidden style="display:flex;flex-direction:column;gap:16px">
+      <div class="panel">
+        <h2>รหัสห้อง (Room Code) <span id="gxCodeShow" style="letter-spacing:.12em"></span></h2>
+        <p id="gxLocked" class="note"></p>
+        <label for="gxMe">ท่านเป็นผู้เล่นคนที่ (ต้องเลือกก่อนจึงจะเห็นข้อมูลลับของท่าน)
+          <select id="gxMe"></select>
+        </label>
+        <label for="gxCodeBox">รหัสเชิญ (ใช้แทนลิงก์ได้ หากลิงก์เปิดไม่ได้)
+          <input id="gxCodeBox" type="text" readonly>
+        </label>
+        <div class="btns">
+          <button id="gxCopy" class="primary" type="button">คัดลอกลิงก์เชิญ</button>
+          <button id="gxCopyCode" class="ghost" type="button">คัดลอกรหัสเชิญ</button>
+          <button id="gxRestart" class="ghost" type="button">ปลดล็อกเพื่อแก้ไขรายชื่อ</button>
+        </div>
+        <p class="note">ทุกคนต้องเลือกลำดับผู้เล่นไม่ซ้ำกัน และใช้ลิงก์หรือรหัสเชิญเดียวกันเท่านั้น หากมีการแก้ไขรายชื่อ ต้องส่งลิงก์ใหม่ให้ทุกคน</p>
+      </div>
+
+      <div class="panel">
+        <div class="btns" style="align-items:center">
+          <button id="gxPrev" class="ghost" type="button">รอบก่อนหน้า</button>
+          <strong id="gxRound">รอบที่ 1</strong>
+          <button id="gxNext" class="ghost" type="button">รอบถัดไป</button>
+        </div>
+        <div id="gxBanner" class="catbanner"></div>
+        <div id="gxMine" class="mine" style="display:flex;flex-direction:column;gap:12px">
+          <div id="gxWordBox" class="plate hidden"><div class="word">ซ่อนอยู่</div></div>
+          <div class="btns"><button id="gxShow" class="primary" type="button">แสดงข้อมูลของฉัน</button></div>
+          <p id="gxMineNote" class="note"></p>
+        </div>
+      </div>
+
+      <div id="gxExtra" class="panel" hidden></div>
+
+      <div class="panel">
+        <h2>จับเวลา</h2>
+        <p id="gxTimerNote" class="note"></p>
+        <div class="row">
+          <label for="gxDur">เวลา (วินาที)
+            <input id="gxDur" type="number" min="20" max="1800" step="10" value="300" inputmode="numeric">
+          </label>
+          <div class="btns" style="align-items:center">
+            <button id="gxTimer" class="primary" type="button">เริ่มจับเวลา</button>
+            <strong id="gxTime" style="font-size:1.6rem;font-variant-numeric:tabular-nums"></strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>เฉลย</h2>
+        <p class="note">กดเมื่อจบรอบแล้วเท่านั้น เพราะเฉลยจะเปิดเผยข้อมูลลับของทุกคน</p>
+        <div class="btns"><button id="gxReveal" class="ghost" type="button">เฉลยผลรอบนี้</button></div>
+        <div id="gxResult" class="res" hidden></div>
+      </div>
+
+      <h2>คะแนน (นับในเครื่องนี้)</h2>
+      <ol id="gxBoard" class="board sb"></ol>
+      <div class="btns"><button id="gxReset" class="ghost" type="button">ล้างคะแนนทั้งหมด</button></div>
+    </div>
+
+    <details id="gxRules" class="rules">
+      <summary id="gxRulesSum">กติกา</summary>
+      <ol id="gxRuleList"></ol>
+    </details>
   </section>
 </main>
 <div id="toast" role="status" aria-live="polite" hidden></div>
@@ -605,14 +734,14 @@ function packNames(list){
   while(v>0n){s=B62[Number(v%62n)]+s;v=v/62n;}
   return s;
 }
-function unpackNames(s){
+function unpackNames(s,mx){
   try{
     var v=0n;for(var i=0;i<s.length;i++){var d=B62.indexOf(s[i]);if(d<0)return null;v=v*62n+BigInt(d);}
     var bytes=[];while(v>0n){bytes.unshift(Number(v&255n));v=v>>8n;}
     var cur="",out=[];
     bytes.forEach(function(b){if(b===10){out.push(cur);cur="";}else if(b>=128){cur+=String.fromCharCode(0x0E00+(b-0x80));}else{cur+=String.fromCharCode(b);}});
     out.push(cur);
-    out=out.map(function(x){return x.trim().slice(0,12);}).filter(Boolean).slice(0,8);
+    out=out.map(function(x){return x.trim().slice(0,12);}).filter(Boolean).slice(0,mx||8);
     return out.length>=2?out:null;
   }catch(e){return null;}
 }
@@ -627,6 +756,7 @@ function parseInvite(raw){
   var m;
   if((m=/^p-([0-9]{4})-([0-9A-Za-z]+)$/.exec(s))){var nm=unpackNames(m[2]);return nm?{game:"p",code:m[1],names:nm}:null;}
   if((m=/^s-([0-9]{4})-([0-9A-Za-z]+)$/.exec(s))){var ns=unpackNames(m[2]);return (ns&&ns.length>=3)?{game:"s",code:m[1],names:ns}:null;}
+  if((m=/^([yifw])-([0-9]{4})-([0-9A-Za-z]+)$/.exec(s))){var gm=GAMES[m[1]],ng=unpackNames(m[3],gm.max);return (ng&&ng.length>=gm.min)?{game:m[1],code:m[2],names:ng}:null;}
   if((m=/^o-([0-9]{4})-([2-8])$/.exec(s))){var a=[];for(var i=1;i<=parseInt(m[2],10);i++)a.push("ผู้เล่น "+i);return {game:"p",code:m[1],names:a};}
   if((m=/^o-([0-9]{4})((?:-(?:[0-9a-f]{2})+)+)$/.exec(s))){var n2=m[2].slice(1).split("-").map(hexDec).filter(Boolean).slice(0,8);return n2.length>=2?{game:"p",code:m[1],names:n2}:null;}
   return null;
@@ -663,7 +793,7 @@ function startLocked(arr,c){
   offRender();
 }
 function openOffline(c,list){
-  $("join").hidden=true;$("odd").hidden=true;$("offline").hidden=false;
+  $("join").hidden=true;$("odd").hidden=true;$("gx").hidden=true;$("offline").hidden=false;
   offCodeV=c||randCode();
   if(list&&list.length>=2){startLocked(list,offCodeV);}
   else{offList=null;$("offPlay").hidden=true;$("offSetup").hidden=false;offCountRefresh();}
@@ -791,7 +921,7 @@ var PRAW=`อาหาร|กาแฟ|ชา
 ชีวิตประจำวัน|ขโมย|โกง`;
 var PAIRS=PRAW.trim().split("\n").map(function(l){var q=l.split("|");return {c:q[0],a:q[1],b:q[2]};});
 var spList=null,spCodeV="",spRound=1,spScores=[0,0,0,0,0,0,0,0],spRev=false,spShown=false,spShowT=0,spEnd=0,spTimerId=0,spPoolCache={};
-function openInvite(r){if(r.game==="s")openOdd(r.code,r.names);else openOffline(r.code,r.names);}
+function openInvite(r){if(r.game==="s")openOdd(r.code,r.names);else if(r.game==="p")openOffline(r.code,r.names);else gxOpen(r.game,r.code,r.names);}
 function spPool(c){
   if(spPoolCache[c])return spPoolCache[c];
   var idx=PAIRS.map(function(_,i){return i;});
@@ -850,7 +980,7 @@ function spStart(arr,c){
   spRender();
 }
 function openOdd(c,list){
-  $("join").hidden=true;$("offline").hidden=true;$("odd").hidden=false;
+  $("join").hidden=true;$("offline").hidden=true;$("gx").hidden=true;$("odd").hidden=false;
   spCodeV=c||randCode();
   if(list&&list.length>=3){spStart(list,spCodeV);}
   else{spList=null;$("spPlay").hidden=true;$("spSetup").hidden=false;spCountRefresh();}
@@ -897,6 +1027,345 @@ $("spTimer").addEventListener("click",function(){
 });
 $("spCopy").addEventListener("click",function(){if(spList)copyText(BASE+"#"+spCodeText(),"คัดลอกลิงก์เชิญแล้ว ส่งให้เพื่อนได้ทันที");});
 $("spCopyCode").addEventListener("click",function(){if(spList)copyText(spCodeText(),"คัดลอกรหัสเชิญแล้ว ส่งให้เพื่อนวางในช่องรหัสเชิญ");});
+/* ---------- เกมกลาง, Spyfall Insider Sounds Fishy Werewolf ---------- */
+var LOCS=`สนามบิน|นักบิน,แอร์โฮสเตส,ผู้โดยสาร,เจ้าหน้าที่ตรวจกระเป๋า,พนักงานเช็กอิน,นักท่องเที่ยว,พนักงานร้านปลอดภาษี,ตำรวจ
+โรงพยาบาล|หมอ,พยาบาล,ผู้ป่วย,เภสัชกร,ญาติผู้ป่วย,ยาม,คนทำความสะอาด,นักศึกษาแพทย์
+โรงเรียน|ครู,นักเรียน,ผู้อำนวยการ,ภารโรง,แม่ค้าโรงอาหาร,ผู้ปกครอง,ครูพละ,หัวหน้าห้อง
+ห้างสรรพสินค้า|พนักงานขาย,ลูกค้า,ยาม,แคชเชียร์,คนทำความสะอาด,คนส่งของ,ผู้จัดการ,เด็กหลงทาง
+ร้านอาหาร|พ่อครัว,พนักงานเสิร์ฟ,ลูกค้า,เจ้าของร้าน,แคชเชียร์,นักวิจารณ์อาหาร,คนส่งอาหาร,ผู้จัดการ
+โรงหนัง|พนักงานฉีกตั๋ว,คนขายป๊อปคอร์น,ผู้ชม,คู่รัก,นักวิจารณ์หนัง,คนฉายหนัง,ยาม,เด็กซน
+ชายหาด|นักท่องเที่ยว,ไลฟ์การ์ด,คนขายผลไม้,ช่างภาพ,คนให้เช่าเรือ,เด็กเล่นทราย,นักวิ่ง,หมอนวด
+สวนสัตว์|คนดูแลสัตว์,นักท่องเที่ยว,เด็กนักเรียน,สัตวแพทย์,คนขายตั๋ว,ช่างภาพ,ไกด์,คนขายขนม
+โรงแรม|พนักงานต้อนรับ,แขก,คนทำความสะอาด,พนักงานยกกระเป๋า,ผู้จัดการ,เชฟ,ยาม,คนขับรถรับส่ง
+สถานีรถไฟ|นายสถานี,พนักงานตรวจตั๋ว,ผู้โดยสาร,คนขายของ,ตำรวจ,ช่างซ่อมราง,นักท่องเที่ยว,คนขับรถไฟ
+วัด|พระ,เณร,แม่ชี,ชาวบ้าน,นักท่องเที่ยว,ไกด์,คนขายดอกไม้,เด็กวัด
+ตลาด|แม่ค้า,ลูกค้า,คนหาบของ,คนขายผัก,ป้าขาต่อราคา,พ่อค้าปลา,เด็กช่วยขายของ,เทศกิจ
+ธนาคาร|พนักงานธนาคาร,ลูกค้า,ผู้จัดการ,ยาม,โจร,พนักงานขายประกัน,ลูกค้าขอกู้,คนรับฝากเงิน
+สถานีตำรวจ|ตำรวจ,ผู้ต้องหา,ผู้แจ้งความ,ทนายความ,นักข่าว,ผู้กำกับ,พยาน,เด็กหาย
+กองถ่ายหนัง|ผู้กำกับ,นักแสดง,ช่างภาพ,ช่างแต่งหน้า,ผู้ช่วยผู้กำกับ,สตั๊นท์แมน,ผู้จัดการกองถ่าย,คนส่งอาหาร
+เรือสำราญ|กัปตัน,นักท่องเที่ยว,พ่อครัว,นักดนตรี,พนักงานเสิร์ฟ,ช่างภาพ,หมอประจำเรือ,คนทำความสะอาด
+ค่ายทหาร|ผู้บังคับบัญชา,ทหารเกณฑ์,พลทหาร,พ่อครัว,หมอ,ครูฝึก,ผู้มาเยี่ยม,คนขับรถ
+ฟิตเนส|เทรนเนอร์,สมาชิก,พนักงานต้อนรับ,หมอนวด,นักเพาะกาย,คนมือใหม่,ผู้จัดการ,คนทำความสะอาด
+ร้านกาแฟ|บาริสต้า,ลูกค้า,ฟรีแลนซ์,คู่รัก,เจ้าของร้าน,พนักงานเสิร์ฟ,คนส่งของ,นักเรียนอ่านหนังสือ
+งานแต่งงาน|เจ้าสาว,เจ้าบ่าว,แขก,ช่างภาพ,พ่อแม่เจ้าสาว,พิธีกร,ช่างแต่งหน้า,นักดนตรี
+สวนสนุก|คนคุมเครื่องเล่น,นักท่องเที่ยว,เด็ก,คนขายตั๋ว,คนใส่ชุดมาสคอต,ยาม,คนขายไอศกรีม,ช่างซ่อม
+ห้องสมุด|บรรณารักษ์,นักเรียน,นักวิจัย,ผู้สูงอายุ,คนแอบหลับ,คนซ่อมหนังสือ,ยาม,คนยืมหนังสือ
+สถานีอวกาศ|นักบินอวกาศ,นักวิทยาศาสตร์,วิศวกร,หมอ,ศูนย์ควบคุม,นักท่องเที่ยวอวกาศ,หุ่นยนต์,ผู้บัญชาการ
+ค่ายแคมป์ปิ้ง|นักปีนเขา,ไกด์,ลูกหาบ,นักท่องเที่ยว,หัวหน้าค่าย,พ่อครัว,เจ้าหน้าที่อุทยาน,ช่างภาพ
+สปา|หมอนวด,ลูกค้า,พนักงานต้อนรับ,เจ้าของ,ช่างทำเล็บ,คนแต่งหน้า,ผู้จัดการ,คนทำความสะอาด`.split("\n").map(function(l){var q=l.split("|");return {n:q[0],r:q[1].split(",")};});
+var QAS=`เมืองหลวงของประเทศออสเตรเลียคือเมืองใด|แคนเบอร์รา
+เมืองหลวงของประเทศตุรกีคือเมืองใด|อังการา
+เมืองหลวงของประเทศบราซิลคือเมืองใด|บราซิเลีย
+เมืองหลวงของประเทศเมียนมาในปัจจุบันคือเมืองใด|เนปยีดอ
+เมืองหลวงของประเทศแคนาดาคือเมืองใด|ออตตาวา
+เมืองหลวงของประเทศนิวซีแลนด์คือเมืองใด|เวลลิงตัน
+ประเทศใดมีจำนวนเกาะมากที่สุดในโลก|สวีเดน
+ประเทศใดมีธงชาติที่ไม่ใช่รูปสี่เหลี่ยม|เนปาล
+สัตว์ชนิดใดมีหัวใจสามดวง|ปลาหมึก
+สัตว์ชนิดใดที่ตัวผู้เป็นฝ่ายตั้งท้อง|ม้าน้ำ
+สัตว์เลี้ยงลูกด้วยนมชนิดใดที่วางไข่|ตุ่นปากเป็ด
+สัตว์ชนิดใดมีเลือดสีน้ำเงิน|แมงดาทะเล
+สัตว์บกชนิดใดนอนหลับน้อยที่สุด ไม่เกินวันละสองชั่วโมง|ยีราฟ
+นกชนิดใดตัวเล็กที่สุดในโลก|นกฮัมมิงเบิร์ดผึ้ง
+นกชนิดใดที่บินถอยหลังได้|นกฮัมมิงเบิร์ด
+กระดูกชิ้นใดเล็กที่สุดในร่างกายมนุษย์|กระดูกโกลนในหู
+อวัยวะส่วนใดของมนุษย์ที่ไม่มีเส้นเลือดมาเลี้ยง|กระจกตา
+ผลไม้ชนิดใดที่มีเมล็ดอยู่ด้านนอก|สตรอว์เบอร์รี
+ผักที่ทางพฤกษศาสตร์จัดเป็นผลไม้ ได้แก่ชนิดใด|มะเขือเทศ
+ธาตุใดนอกจากปรอทที่เป็นของเหลวที่อุณหภูมิห้อง|โบรมีน
+ธาตุใดมีมากที่สุดในเปลือกโลก|ออกซิเจน
+ดาวเคราะห์ดวงใดหมุนรอบตัวเองสวนทางกับดาวส่วนใหญ่|ดาวศุกร์
+ดาวเคราะห์ดวงใดหมุนรอบตัวเองเร็วที่สุด|ดาวพฤหัสบดี
+ดวงจันทร์ดวงใหญ่ที่สุดของดาวเสาร์ชื่ออะไร|ไททัน
+ภูเขาใดสูงที่สุดในโลกเมื่อวัดจากฐานใต้ทะเลถึงยอด|เมานาเคอา
+ทะเลสาบน้ำจืดที่ลึกที่สุดในโลกคือทะเลสาบใด|ไบคาล
+ทะเลทรายที่ใหญ่ที่สุดในโลกคือทะเลทรายใด|ทะเลทรายแอนตาร์กติก
+ภูเขาไฟลูกใดทำลายเมืองปอมเปอี|ภูเขาไฟเวสุเวียส
+ทัชมาฮาลสร้างขึ้นเพื่อใคร|พระมเหสีมุมตัซ มาฮาล
+ผู้หญิงคนแรกที่ได้รับรางวัลโนเบลคือใคร|มารี กูรี
+ใครเป็นผู้วาดภาพ ราตรีประดับดาว|วินเซนต์ แวน โก๊ะ
+สัตว์ประจำชาติของสกอตแลนด์คือสัตว์ใด|ยูนิคอร์น
+ลูกของจิงโจ้เรียกว่าอะไร|โจอี้
+กล่องดำบนเครื่องบินจริงๆ มีสีอะไร|สีส้ม
+น้ำอัดลมยี่ห้อดังยี่ห้อใดถูกคิดค้นโดยเภสัชกร|โคคา-โคลา
+ภาษาใดมีผู้พูดเป็นภาษาแม่มากที่สุดในโลก|ภาษาจีนกลาง
+ประเทศใดมีประชากรมากที่สุดในโลกในปัจจุบัน|อินเดีย
+ประเทศใดมีพื้นที่เล็กที่สุดในโลก|นครรัฐวาติกัน
+ประเทศใดผลิตกาแฟมากที่สุดในโลก|บราซิล
+จังหวัดใดมีพื้นที่เล็กที่สุดในประเทศไทย|สมุทรสงคราม
+จังหวัดใดมีพื้นที่ใหญ่ที่สุดในประเทศไทย|นครราชสีมา
+ยอดเขาที่สูงที่สุดในประเทศไทยคือยอดเขาใด|ดอยอินทนนท์
+ปลาชนิดใดมีขนาดใหญ่ที่สุดในโลก|ฉลามวาฬ
+สัตว์เลื้อยคลานที่ใหญ่ที่สุดในโลกคือสัตว์ใด|จระเข้น้ำเค็ม
+ผลไม้ชนิดใดได้ชื่อว่าราชินีแห่งผลไม้ของไทย|มังคุด
+ผลไม้ชนิดใดเป็นญาติใกล้ชิดกับดอกกุหลาบทางพฤกษศาสตร์|แอปเปิล
+ปรากฏการณ์แสงสีเขียวบนท้องฟ้าใกล้ขั้วโลกเหนือเรียกว่าอะไร|แสงเหนือ หรือออโรรา
+สัตว์ชนิดใดมีลิ้นยาวกว่าความยาวลำตัวของมัน|กิ้งก่าคาเมเลียน`.split("\n").map(function(l){var q=l.split("|");return {q:q[0],a:q[1]};});
+function gxShuf(len,key){var a=[];for(var i=0;i<len;i++)a.push(i);return a.sort(function(x,y){var d=hash(key+"|"+x)-hash(key+"|"+y);return d||(x-y);});}
+function gxRot(c,tag,n,r){var k=Math.floor((r-1)/n),pos=(r-1)%n;return gxShuf(n,c+"|"+tag+"|"+k)[pos];}
+function gxP(t){return '<p class="note">'+esc(t)+'</p>';}
+
+var GAMES={
+y:{key:"y",name:"Spyfall (สายลับในวง)",min:3,max:8,dur:480,
+  note:"กรอกรายชื่อผู้เล่นทุกคนรวมตัวท่านเอง บรรทัดละหนึ่งชื่อ จำนวน 3 ถึง 8 คน (แนะนำ 5 คนขึ้นไป) เมื่อกดล็อก จำนวนผู้เล่นจะเท่ากับรายชื่อและแก้ไขไม่ได้ จากนั้นส่งลิงก์เชิญให้เพื่อน",
+  timerNote:"ค่าเริ่มต้น 480 วินาที (8 นาที) ต่อรอบ เมื่อหมดเวลาให้ทุกคนโหวตหาสายลับพร้อมกัน",
+  deal:function(c,n,r){
+    var o=gxShuf(LOCS.length,c+"|loc"),loc=LOCS[o[(r-1)%LOCS.length]],spy=gxRot(c,"spy",n,r);
+    var ro=gxShuf(8,c+"|rl|"+r),roles={},j=0;
+    for(var i=0;i<n;i++){if(i===spy)continue;roles[i]=loc.r[ro[j%8]];j++;}
+    return {loc:loc,spy:spy,roles:roles,first:gxShuf(n,c+"|first|"+r)[0]};
+  },
+  banner:function(D,L){return "ผู้เริ่มถามคนแรก "+L[D.first];},
+  mine:function(D,i,L){
+    if(i===D.spy)return {big:"ท่านคือสายลับ",lines:["ท่านไม่ทราบสถานที่ ฟังคำถามและคำตอบของผู้อื่น แล้วเดาสถานที่ให้ถูกต้อง","ดูรายการสถานที่ที่เป็นไปได้ในกล่องด้านล่าง"],cls:""};
+    return {big:D.loc.n,lines:["บทบาทของท่าน "+D.roles[i],"ท่านไม่ใช่สายลับ ตอบให้สายลับเดาสถานที่ได้ยาก แต่ให้คนในวงเชื่อว่าท่านอยู่ที่นี่จริง"],cls:"ok"};
+  },
+  extra:function(D,i,L,st){
+    if(i<0)return "";
+    return '<h2>รายการสถานที่ที่เป็นไปได้</h2><p class="note">แตะที่ชื่อสถานที่เพื่อขีดฆ่าหรือยกเลิกการขีดฆ่า (บันทึกเฉพาะเครื่องนี้)</p><div class="locs">'+
+      LOCS.map(function(x,k){return '<button type="button" class="locb'+(st.strike[k]?' struck':'')+'" data-gx="strike" data-i="'+k+'">'+esc(x.n)+'</button>';}).join("")+'</div>';
+  },
+  reveal:function(D,L){
+    return '<div>สายลับคือ <strong>'+esc(L[D.spy])+'</strong> (ผู้เล่นคนที่ '+(D.spy+1)+')</div><div>สถานที่ <strong>'+esc(D.loc.n)+'</strong></div><div>บทบาท '+
+      L.map(function(l,k){return k===D.spy?null:esc(l)+" เป็น"+esc(D.roles[k]);}).filter(Boolean).join(", ")+'</div>';
+  },
+  rules:[
+   "ผู้เล่นทุกคนได้รับสถานที่เดียวกันพร้อมบทบาทของตนเอง ยกเว้นสายลับ 1 คนที่ไม่ทราบสถานที่ ผู้เล่นไม่ทราบว่าใครเป็นสายลับ",
+   "ทุกคนกด \"แสดงข้อมูลของฉัน\" เพื่อดูสถานที่และบทบาทของตนเองอย่างลับๆ ข้อมูลจะซ่อนเองอัตโนมัติ",
+   "ผู้เริ่มถามคนแรกตามที่ระบบแสดง ผลัดกันถามคำถามเกี่ยวกับสถานที่คนละ 1 คำถาม ผู้ถูกถามตอบแล้วเป็นผู้ถามคนถัดไป ห้ามถามกลับผู้ที่เพิ่งถามตน คำถามต้องไม่ระบุชื่อสถานที่ตรงๆ",
+   "ฝ่ายผู้เล่นทั่วไปพยายามถามให้สายลับเผยตัว โดยไม่เปิดเผยสถานที่มากเกินไป ส่วนสายลับพยายามตอบให้กลมกลืนและหาเบาะแสสถานที่",
+   "สายลับประกาศเดาสถานที่ได้ทุกเมื่อ หากถูกต้องสายลับชนะทันที หากผิดสายลับแพ้ ผู้เล่นทั่วไปขอให้โหวตเมื่อใดก็ได้ หากทุกคนยกเว้นผู้ถูกกล่าวหาเห็นพ้องกัน ผู้ถูกกล่าวหาต้องเปิดเผยว่าตนเป็นสายลับหรือไม่",
+   "เมื่อหมดเวลา ทุกคนชี้ผู้ที่สงสัยที่สุดพร้อมกัน ผู้ที่ได้เสียงมากที่สุดถูกจับ หากจับสายลับได้ ฝ่ายผู้เล่นทั่วไปชนะ",
+   "กด \"เฉลยผลรอบนี้\" เมื่อจบรอบเท่านั้น คะแนนที่เสนอให้ใช้ ฝ่ายผู้เล่นทั่วไปชนะได้คนละ 1 คะแนน (ผู้ชี้ถูกคนแรกได้ 2 คะแนน) สายลับชนะได้ 4 คะแนน ผู้ดูแลคะแนนกด + และ − ที่กระดานคะแนน ปรับตามที่กลุ่มตกลงได้",
+   "แต่ละรอบสายลับเปลี่ยนคน เมื่อเล่นครบรอบเท่าจำนวนผู้เล่น ทุกคนจะได้เป็นสายลับคนละ 1 ครั้งเท่ากัน"]},
+
+i:{key:"i",name:"Insider (ผู้แฝงตัว)",min:4,max:8,dur:300,
+  note:"กรอกรายชื่อผู้เล่นทุกคนรวมตัวท่านเอง บรรทัดละหนึ่งชื่อ จำนวน 4 ถึง 8 คน (แนะนำ 5 คนขึ้นไป) เมื่อกดล็อก จำนวนผู้เล่นจะเท่ากับรายชื่อและแก้ไขไม่ได้ จากนั้นส่งลิงก์เชิญให้เพื่อน",
+  timerNote:"ช่วงที่ 1 ทายคำลับ ค่าเริ่มต้น 300 วินาที จากนั้นปรับเป็น 120 วินาทีสำหรับช่วงที่ 2 ถกเถียงหาผู้แฝงตัว",
+  deal:function(c,n,r){
+    var o=gxShuf(WORDS.length,c+"|iw"),w=WORDS[o[(r-1)%WORDS.length]],m=gxRot(c,"ms",n,r),s=gxRot(c,"in",n,r);
+    if(s===m)s=(s+1)%n;
+    return {w:w,master:m,ins:s};
+  },
+  banner:function(D,L){return "ผู้ตอบ (Master) คือ "+L[D.master]+" หมวดของคำลับ "+D.w.c;},
+  mine:function(D,i,L){
+    if(i===D.master)return {big:D.w.w,lines:["ท่านคือผู้ตอบ (Master) ท่านเห็นคำลับ ตอบคำถามได้เพียง ใช่ ไม่ใช่ หรือ ใกล้เคียง","ผู้แฝงตัว (Insider) คือ "+L[D.ins]+" ท่านรู้ตัวตนนี้แต่ห้ามเปิดเผย"],cls:"ok"};
+    if(i===D.ins)return {big:D.w.w,lines:["ท่านคือผู้แฝงตัว (Insider) ท่านเห็นคำลับ ชี้นำเพื่อนให้ทายถูกอย่างแนบเนียน อย่าให้ใครจับได้","ผู้ตอบ (Master) รู้ว่าท่านเป็นผู้แฝงตัว"],cls:""};
+    return {big:"ท่านคือสามัญชน",lines:["ท่านไม่ทราบคำลับ ถามคำถามผู้ตอบ (Master) เพื่อทายคำ คำลับอยู่ในหมวด "+D.w.c,"ผู้ตอบจะตอบเพียง ใช่ ไม่ใช่ หรือ ใกล้เคียง"],cls:"ok"};
+  },
+  reveal:function(D,L){return '<div>คำลับคือ <strong>'+esc(D.w.w)+'</strong> (หมวด '+esc(D.w.c)+')</div><div>ผู้ตอบ (Master) <strong>'+esc(L[D.master])+'</strong></div><div>ผู้แฝงตัว (Insider) <strong>'+esc(L[D.ins])+'</strong></div>';},
+  rules:[
+   "ทุกรอบมีผู้ตอบ (Master) 1 คน และผู้แฝงตัว (Insider) 1 คน ทั้งสองคนเห็นคำลับ ส่วนผู้เล่นที่เหลือเป็นสามัญชนซึ่งไม่ทราบคำ ทุกคนเห็นชื่อผู้ตอบและหมวดของคำลับ แต่ไม่ทราบว่าใครเป็นผู้แฝงตัว",
+   "ทุกคนกด \"แสดงข้อมูลของฉัน\" เพื่อดูข้อมูลของตนเองอย่างลับๆ ข้อมูลจะซ่อนเองอัตโนมัติ",
+   "ช่วงที่ 1 สามัญชนผลัดกันถามผู้ตอบเพื่อทายคำลับ ผู้ตอบตอบได้เพียง ใช่ ไม่ใช่ หรือ ใกล้เคียง ตลอดช่วงนี้ผู้แฝงตัวแอบชี้นำให้ทายถูกโดยไม่ให้ใครสงสัย ใช้เวลา 300 วินาที",
+   "หากทายคำลับได้ทันเวลา ให้เริ่มช่วงที่ 2 หากหมดเวลาก่อนทายถูก ทุกคนแพ้รวมทั้งผู้แฝงตัว",
+   "ช่วงที่ 2 ทุกคนถกเถียงกันเป็นเวลา 120 วินาที ว่าใครเป็นผู้แฝงตัว จากนั้นชี้ผู้ที่สงสัยพร้อมกัน ผู้ที่ได้เสียงมากที่สุดถูกจับ",
+   "หากจับผู้แฝงตัวได้ถูกต้อง สามัญชนและผู้ตอบชนะ หากจับผิด ผู้แฝงตัวชนะ",
+   "กด \"เฉลยผลรอบนี้\" เมื่อโหวตเสร็จแล้วเท่านั้น คะแนนที่เสนอให้ใช้ ผู้ชนะได้คนละ 1 คะแนน (ผู้แฝงตัวชนะได้ 2 คะแนน) ผู้ดูแลคะแนนกด + และ − ที่กระดานคะแนน",
+   "ทุกรอบเปลี่ยนผู้ตอบและผู้แฝงตัว เมื่อเล่นครบรอบเท่าจำนวนผู้เล่น ทุกคนจะได้เป็นผู้ตอบคนละ 1 ครั้งเท่ากัน"]},
+
+f:{key:"f",name:"Sounds Fishy (ตอบหลอก)",min:4,max:8,dur:180,
+  note:"กรอกรายชื่อผู้เล่นทุกคนรวมตัวท่านเอง บรรทัดละหนึ่งชื่อ จำนวน 4 ถึง 8 คน เมื่อกดล็อก จำนวนผู้เล่นจะเท่ากับรายชื่อและแก้ไขไม่ได้ จากนั้นส่งลิงก์เชิญให้เพื่อน",
+  timerNote:"ค่าเริ่มต้น 180 วินาที สำหรับให้ทุกคนตอบและผู้ทายตัดสินใจ",
+  deal:function(c,n,r){
+    var o=gxShuf(QAS.length,c+"|q"),qa=QAS[o[(r-1)%QAS.length]],g=gxRot(c,"gs",n,r),k=gxRot(c,"kp",n,r);
+    if(k===g)k=(k+1)%n;
+    var ord=gxShuf(n,c+"|ord|"+r).filter(function(x){return x!==g;});
+    return {qa:qa,g:g,k:k,ord:ord};
+  },
+  banner:function(D,L){return "ผู้ทาย "+L[D.g]+" คำถาม "+D.qa.q;},
+  mine:function(D,i,L){
+    if(i===D.g)return {big:"ท่านคือผู้ทาย",lines:["ท่านไม่เห็นคำตอบจริง ฟังคำตอบของทุกคน แล้วชี้ว่าใครเป็นผู้ตอบหลอก"],cls:"ok"};
+    if(i===D.k)return {big:D.qa.a,lines:["ท่านคือผู้รู้คำตอบจริง คำถามคือ "+D.qa.q,"ตอบด้วยท่าทีธรรมชาติ อย่าให้ผู้ทายแยกท่านออกจากผู้ตอบหลอก"],cls:"ok"};
+    return {big:"ท่านคือผู้ตอบหลอก",lines:["ท่านไม่ทราบคำตอบจริง ฟังคำตอบของผู้ที่ตอบก่อนหน้า แล้วตอบให้น่าเชื่อถือที่สุด","คำถามคือ "+D.qa.q],cls:""};
+  },
+  extra:function(D,i,L){
+    return '<h2>ลำดับการตอบ</h2><ol class="board">'+D.ord.map(function(s,k){return '<li><span class="rk">'+(k+1)+'</span><span class="nm">'+esc(L[s])+(s===i?' (ท่าน)':'')+'</span><span></span></li>';}).join("")+'</ol>';
+  },
+  reveal:function(D,L){
+    return '<div>คำถาม <strong>'+esc(D.qa.q)+'</strong></div><div>คำตอบจริง <strong>'+esc(D.qa.a)+'</strong></div><div>ผู้รู้คำตอบจริง <strong>'+esc(L[D.k])+'</strong></div><div>ผู้ตอบหลอก '+
+      D.ord.filter(function(s){return s!==D.k;}).map(function(s){return esc(L[s]);}).join(", ")+'</div>';
+  },
+  rules:[
+   "ทุกรอบมีผู้ทาย 1 คน ผู้รู้คำตอบจริง 1 คน และผู้ตอบหลอกที่เหลือทั้งหมด ผู้ทายไม่เห็นคำตอบจริง ทุกคนเห็นคำถามที่แสดงบนแถบด้านบน",
+   "ทุกคนกด \"แสดงข้อมูลของฉัน\" เพื่อดูบทบาทของตนเองอย่างลับๆ ผู้รู้คำตอบจริงจะเห็นคำตอบ ส่วนผู้ตอบหลอกจะไม่เห็นคำตอบ",
+   "ผู้ทายอ่านคำถามออกเสียง จากนั้นผู้ตอบทุกคนผลัดกันตอบตามลำดับที่ระบบแสดง ผู้ตอบหลอกต้องฟังคำตอบของคนก่อนหน้า แล้วตอบให้ดูเหมือนรู้จริง",
+   "เมื่อทุกคนตอบแล้ว ผู้ทายอาจซักถามเพิ่มเติม แล้วชี้ผู้ที่คิดว่าเป็นผู้ตอบหลอกได้ทีละคน",
+   "ผู้ทายได้ 1 คะแนนต่อผู้ตอบหลอกที่ชี้ถูกแต่ละคน และหยุดเก็บคะแนนเมื่อใดก็ได้ แต่หากชี้ถูกผู้รู้คำตอบจริง ผู้ทายเสียคะแนนที่สะสมไว้ในรอบนั้นทั้งหมด (ข้อเสนอสำหรับกลุ่ม ปรับได้)",
+   "ผู้ตอบหลอกที่ไม่ถูกชี้ในรอบนั้นได้คนละ 1 คะแนน ผู้รู้คำตอบจริงได้ 1 คะแนนหากผู้ทายหยุดโดยไม่ชี้ถูกตน ผู้ดูแลคะแนนกด + และ − ที่กระดานคะแนน",
+   "กด \"เฉลยผลรอบนี้\" หลังผู้ทายตัดสินใจเสร็จแล้วเท่านั้น คำถามและคำตอบเป็นความรู้ทั่วไป ท่านอาจตรวจสอบคำตอบจากแหล่งอ้างอิงได้",
+   "แต่ละรอบเปลี่ยนผู้ทายและผู้รู้คำตอบจริง เมื่อเล่นครบรอบเท่าจำนวนผู้เล่น ทุกคนจะได้เป็นผู้ทายคนละ 1 ครั้งเท่ากัน"]},
+
+w:{key:"w",name:"Werewolf (มนุษย์หมาป่า)",min:6,max:12,dur:300,narr:true,
+  note:"ชื่อแรกในรายชื่อคือผู้ดำเนินเกม ซึ่งไม่ได้เป็นผู้เล่น กรอกบรรทัดละหนึ่งชื่อ รวมทั้งสิ้น 6 ถึง 12 คน คือผู้ดำเนินเกม 1 คน และผู้เล่นอย่างน้อย 5 คน เมื่อกดล็อก จำนวนจะเท่ากับรายชื่อและแก้ไขไม่ได้ จากนั้นส่งลิงก์เชิญให้เพื่อน",
+  timerNote:"ใช้จับเวลาช่วงกลางวัน สำหรับอภิปรายและโหวต ค่าเริ่มต้น 300 วินาที",
+  deal:function(c,n,r){
+    var m=n-1,w=Math.max(1,Math.floor(m/3)),d=m>=6?1:0,v=m-w-1-d,arr=[],i;
+    for(i=0;i<w;i++)arr.push("หมาป่า");arr.push("หมอดู");if(d)arr.push("หมอ");for(i=0;i<v;i++)arr.push("ชาวบ้าน");
+    var ord=gxShuf(m,c+"|wr|"+r),roles={};
+    ord.forEach(function(p,j){roles[p+1]=arr[j];});
+    return {m:m,w:w,d:d,v:v,roles:roles};
+  },
+  banner:function(D,L){return "ผู้ดำเนินเกม "+L[0]+" ผู้เล่น "+D.m+" คน (หมาป่า "+D.w+", หมอดู 1"+(D.d?", หมอ 1":"")+", ชาวบ้าน "+D.v+")";},
+  mine:function(D,i,L){
+    if(i===0)return {big:"ท่านคือผู้ดำเนินเกม",lines:["ท่านไม่ได้เล่น ดูบทบาทของทุกคนและดำเนินเกมตามลำดับในกล่องด้านล่าง"],cls:"ok"};
+    var ro=D.roles[i];
+    if(ro==="หมาป่า"){
+      var mates=[];for(var k=1;k<L.length;k++){if(k!==i&&D.roles[k]==="หมาป่า")mates.push(L[k]);}
+      return {big:"หมาป่า",lines:["ตอนกลางคืนเลือกเหยื่อร่วมกับเพื่อนหมาป่าอย่างลับๆ แล้วแจ้งผู้ดำเนินเกมเป็นการส่วนตัว","เพื่อนหมาป่า "+(mates.length?mates.join(", "):"ไม่มี ท่านเป็นหมาป่าตัวเดียว")],cls:""};
+    }
+    if(ro==="หมอดู")return {big:"หมอดู",lines:["ตอนกลางคืนแจ้งผู้ดำเนินเกมเป็นการส่วนตัวว่าต้องการตรวจใคร ผู้ดำเนินเกมจะตอบเพียงว่าเป็นหมาป่าหรือไม่"],cls:"ok"};
+    if(ro==="หมอ")return {big:"หมอ",lines:["ตอนกลางคืนแจ้งผู้ดำเนินเกมเป็นการส่วนตัวว่าจะป้องกันใคร ป้องกันตนเองได้ แต่ห้ามป้องกันคนเดิมสองคืนติดกัน"],cls:"ok"};
+    return {big:"ชาวบ้าน",lines:["ท่านไม่มีความสามารถพิเศษ ช่วยกันสังเกตและโหวตหาหมาป่าในตอนกลางวัน"],cls:"ok"};
+  },
+  extra:function(D,i,L,st){
+    if(i!==0)return "";
+    if(!st.shown)return '<h2>แผงควบคุมผู้ดำเนินเกม</h2><p class="note">กด "แสดงข้อมูลของฉัน" เพื่อดูบทบาทของทุกคน ข้อมูลจะซ่อนเองใน 5 นาที</p>';
+    var wolves=0,others=0,rows="";
+    for(var k=1;k<L.length;k++){
+      var alive=st.alive[k]!==false;
+      if(alive){if(D.roles[k]==="หมาป่า")wolves++;else others++;}
+      rows+='<li class="'+(alive?'':'dead')+'"><span class="nm">'+esc(L[k])+' ('+esc(D.roles[k])+')</span><span class="sc" style="font-size:.95rem">'+(alive?'รอดอยู่':'ถูกกำจัด')+'</span><span class="adj"><button type="button" class="wide" data-gx="alive" data-i="'+k+'">'+(alive?'ตัดออกจากเกม':'กลับเข้าเกม')+'</button></span></li>';
+    }
+    var st2=wolves===0?"ฝ่ายชาวบ้านชนะ (ไม่มีหมาป่าเหลืออยู่)":(wolves>=others?"ฝ่ายหมาป่าชนะ (หมาป่ามีจำนวนเท่ากับหรือมากกว่าผู้เล่นฝ่ายอื่น)":"เกมยังไม่จบ หมาป่าเหลือ "+wolves+" ตัว ผู้เล่นฝ่ายอื่นเหลือ "+others+" คน");
+    return '<h2>แผงควบคุมผู้ดำเนินเกม</h2><ol class="board sb">'+rows+'</ol><div class="res"><strong>'+esc(st2)+'</strong></div>'+
+      '<h2>ลำดับดำเนินเกม</h2><ol class="script"><li>ประกาศ "กลางคืนมาถึง" ให้ทุกคนปิดไมโครโฟนและกล้อง</li><li>เรียกหมาป่า หมาป่าแจ้งเหยื่อเป็นการส่วนตัวผ่านข้อความหรือโทรหาผู้ดำเนินเกม</li><li>เรียกหมอ แจ้งผู้ที่จะป้องกัน</li><li>เรียกหมอดู ตอบเพียงว่าผู้ที่ถูกตรวจเป็นหมาป่าหรือไม่</li><li>ประกาศ "รุ่งเช้า" แจ้งผู้ที่ถูกกำจัด (หากไม่ได้รับการป้องกัน) แล้วกด "ตัดออกจากเกม"</li><li>ทุกคนเปิดไมโครโฟน อภิปรายและโหวตขับไล่ 1 คน แล้วกด "ตัดออกจากเกม" ตรวจผลแพ้ชนะ แล้ววนกลับไปกลางคืน</li></ol>';
+  },
+  reveal:function(D,L){
+    var out='<div>ผู้ดำเนินเกม <strong>'+esc(L[0])+'</strong></div>';
+    for(var k=1;k<L.length;k++)out+='<div>'+esc(L[k])+' เป็น <strong>'+esc(D.roles[k])+'</strong></div>';
+    return out;
+  },
+  rules:[
+   "ผู้ดำเนินเกม (ชื่อแรกในรายชื่อ) ไม่ได้เป็นผู้เล่น ทำหน้าที่ดำเนินเกม ผู้เล่นที่เหลือได้บทบาทลับ ได้แก่ หมาป่า หมอดู หมอ (เมื่อมีผู้เล่นตั้งแต่ 6 คน) และชาวบ้าน",
+   "ทุกคนกด \"แสดงข้อมูลของฉัน\" เพื่อดูบทบาทของตนเองอย่างลับๆ หมาป่าจะเห็นเพื่อนหมาป่าด้วย ผู้ดำเนินเกมจะเห็นบทบาทของทุกคน",
+   "กลางคืน ผู้ดำเนินเกมสั่งให้ทุกคนปิดไมโครโฟนและกล้อง แล้วเรียกหมาป่า หมอ และหมอดู ตามลำดับ ผู้ถูกเรียกแจ้งการเลือกต่อผู้ดำเนินเกมเป็นการส่วนตัวเท่านั้น (ข้อความส่วนตัวหรือโทรแยก)",
+   "หมาป่าเลือกกำจัดผู้เล่น 1 คนต่อคืน หมอป้องกันได้ 1 คนต่อคืน ห้ามป้องกันคนเดิมสองคืนติดกัน หมอดูตรวจได้ 1 คนต่อคืน ผู้ดำเนินเกมตอบเพียงว่าเป็นหมาป่าหรือไม่",
+   "กลางวัน ผู้ดำเนินเกมประกาศผู้ที่ถูกกำจัด ทุกคนที่ยังอยู่เปิดไมโครโฟน อภิปรายและโหวตขับไล่ผู้ต้องสงสัย 1 คน ผู้ที่ถูกขับไล่ออกจากเกมและต้องเงียบ แต่ผู้ดำเนินเกมไม่เปิดเผยบทบาทระหว่างเกม",
+   "ฝ่ายชาวบ้านชนะเมื่อกำจัดหมาป่าหมดทุกตัว ฝ่ายหมาป่าชนะเมื่อจำนวนหมาป่าเท่ากับหรือมากกว่าผู้เล่นฝ่ายอื่นที่ยังอยู่ แผงควบคุมของผู้ดำเนินเกมช่วยตรวจผลให้",
+   "กด \"เฉลยผลรอบนี้\" เมื่อจบเกมเท่านั้น คะแนนที่เสนอให้ใช้ ผู้เล่นฝ่ายที่ชนะได้คนละ 1 คะแนน ผู้ดูแลคะแนนกด + และ − ที่กระดานคะแนน (ผู้ดำเนินเกมไม่มีคะแนน)",
+   "หากต้องการเปลี่ยนผู้ดำเนินเกม ให้ปลดล็อกรายชื่อ แล้วย้ายชื่อของผู้ที่จะดำเนินเกมไว้บรรทัดแรก จากนั้นส่งลิงก์ใหม่ให้ทุกคน"]}
+};
+
+var G=null,gxList=null,gxCode="",gxRound=1,gxScores=[],gxRev=false,gxShown=false,gxShowT=0,gxEnd=0,gxTimerId=0,gxStrike={},gxAlive=[];
+function gxCodeText(){return G.key+"-"+gxCode+"-"+packNames(gxList);}
+function gxParse(){return $("gxNames").value.split(/\n+/).map(function(s){return s.trim().replace(/\s+/g," ").slice(0,12);}).filter(Boolean);}
+function gxCountRefresh(){$("gxCount").textContent="จำนวนผู้เล่นขณะนี้ "+gxParse().length+" คน ("+G.min+" ถึง "+G.max+" คน)";}
+function gxHide(){gxShown=false;clearTimeout(gxShowT);}
+function gxZero(){gxScores=[];for(var i=0;i<12;i++)gxScores.push(0);}
+function gxNewRound(){gxRev=false;gxHide();gxStrike={};gxAlive=[];for(var i=0;i<12;i++)gxAlive.push(true);}
+function gxRender(){
+  if(!G||!gxList)return;
+  var L=gxList,n=L.length,me=$("gxMe"),cur=parseInt(me.value,10)||0,sig=G.key+"|"+L.join("|");
+  if(me.dataset.sig!==sig){
+    me.innerHTML='<option value="">เลือกลำดับของท่าน</option>'+L.map(function(l,i){return '<option value="'+(i+1)+'">'+(i+1)+' ('+esc(l)+')'+(G.narr&&i===0?' ผู้ดำเนินเกม':'')+'</option>';}).join("");
+    me.dataset.sig=sig;me.value=(cur>=1&&cur<=n)?String(cur):"";
+  }
+  var s=parseInt(me.value,10)||0,i0=s-1,D=G.deal(gxCode,n,gxRound);
+  $("gxCodeShow").textContent=gxCode;$("gxCodeBox").value=gxCodeText();
+  $("gxLocked").textContent="ล็อกรายชื่อแล้ว "+n+" คน ได้แก่ "+L.map(function(l,i){return (i+1)+". "+l;}).join(", ");
+  $("gxRound").textContent="รอบที่ "+gxRound;
+  $("gxBanner").textContent=G.banner(D,L);
+  var box=$("gxWordBox"),sec=(G.narr&&s===1)?300:6;
+  if(!s){
+    box.className="plate hidden";box.innerHTML='<div class="word sm">ยังไม่ได้เลือกลำดับ</div>';
+    $("gxShow").disabled=true;$("gxMineNote").textContent="กรุณาเลือก \"ท่านเป็นผู้เล่นคนที่\" ก่อน ระบบจึงจะแสดงข้อมูลลับของท่านได้";
+  }else if(gxShown){
+    var M=G.mine(D,i0,L);
+    box.className="plate"+(M.cls?" "+M.cls:"");
+    box.innerHTML='<div class="word'+(M.big.length>9?' sm':'')+'">'+esc(M.big)+'</div>'+M.lines.map(gxP).join("");
+    $("gxShow").disabled=false;$("gxShow").textContent="ซ่อนข้อมูล";
+    $("gxMineNote").textContent="ข้อมูลจะซ่อนเองใน "+(sec>=60?(sec/60)+" นาที":sec+" วินาที")+" ห้ามให้ผู้อื่นเห็นหน้าจอของท่าน";
+  }else{
+    box.className="plate hidden";box.innerHTML='<div class="word sm">ซ่อนอยู่</div>';
+    $("gxShow").disabled=false;$("gxShow").textContent="แสดงข้อมูลของฉัน";
+    $("gxMineNote").textContent="กดเมื่อพร้อมดูข้อมูล ขณะดู ควรปิดการแชร์หน้าจอของท่านก่อน";
+  }
+  var ex=(G.extra&&s)?G.extra(D,i0,L,{strike:gxStrike,alive:gxAlive,shown:gxShown}):"";
+  $("gxExtra").hidden=!ex;$("gxExtra").innerHTML=ex;
+  var res=$("gxResult");res.hidden=!gxRev;
+  if(gxRev)res.innerHTML=G.reveal(D,L);
+  $("gxReveal").disabled=gxRev;
+  $("gxBoard").innerHTML=L.map(function(l,i){
+    if(G.narr&&i===0)return "";
+    return '<li><span class="nm">'+esc(l)+(i+1===s?' (ท่าน)':'')+'</span><span class="sc">'+gxScores[i]+'</span><span class="adj"><button type="button" data-i="'+i+'" data-d="-1" aria-label="หัก 1 คะแนน '+esc(l)+'">−</button><button type="button" data-i="'+i+'" data-d="1" aria-label="เพิ่ม 1 คะแนน '+esc(l)+'">+</button></span></li>';
+  }).join("");
+}
+function gxStart(arr,c){
+  gxList=arr.slice(0,G.max);gxCode=c;gxRound=1;gxZero();gxNewRound();
+  $("gxSetup").hidden=true;$("gxPlay").hidden=false;
+  $("gxDur").value=G.dur;$("gxTimerNote").textContent=G.timerNote;
+  try{location.hash=gxCodeText();}catch(e){}
+  gxRender();
+}
+function gxOpen(gid,c,list){
+  var g=GAMES[gid];if(!g)return;
+  G=g;clearInterval(gxTimerId);gxHide();$("gxTime").textContent="";
+  $("join").hidden=true;$("offline").hidden=true;$("odd").hidden=true;$("gx").hidden=false;
+  $("gxTitle").textContent="ตั้งค่ารายชื่อผู้เล่น ("+G.name+")";
+  $("gxNote").textContent=G.note;
+  $("gxRulesSum").textContent="กติกา "+G.name;
+  $("gxRuleList").innerHTML=G.rules.map(function(t){return "<li>"+esc(t)+"</li>";}).join("");
+  $("gxRules").open=false;
+  gxCode=c||randCode();
+  if(list&&list.length>=G.min){gxStart(list,gxCode);}
+  else{gxList=null;$("gxNames").value="";$("gxPlay").hidden=true;$("gxSetup").hidden=false;$("gxMsg").textContent="";gxCountRefresh();}
+}
+function gxGo(d){gxRound=Math.max(1,Math.min(99,gxRound+d));gxNewRound();gxRender();}
+$("gxNames").addEventListener("input",function(){if(G)gxCountRefresh();});
+$("gxLock").addEventListener("click",function(){
+  var arr=gxParse(),m=$("gxMsg");
+  if(arr.length<G.min){m.textContent="ต้องมีผู้เล่นอย่างน้อย "+G.min+" คน"+(G.narr?" (รวมผู้ดำเนินเกม)":"");return;}
+  if(arr.length>G.max){m.textContent="รายชื่อเกิน "+G.max+" คน กรุณาลดให้เหลือไม่เกิน "+G.max+" คน";return;}
+  if(new Set(arr).size!==arr.length){m.textContent="พบชื่อซ้ำ กรุณาตั้งชื่อให้ต่างกัน";return;}
+  if(!arr.every(nameOK)){m.textContent="ชื่อใช้ได้เฉพาะตัวอักษรไทย ตัวอักษรอังกฤษ ตัวเลข และเว้นวรรค (ไม่รองรับอีโมจิ)";return;}
+  m.textContent="";gxStart(arr,gxCode||randCode());
+  toast("ล็อกรายชื่อ "+arr.length+" คนแล้ว กดคัดลอกลิงก์เชิญเพื่อส่งให้เพื่อน");
+});
+$("gxRestart").addEventListener("click",function(){
+  var keep=gxList?gxList.join("\n"):"";
+  gxList=null;gxCode=randCode();gxHide();clearInterval(gxTimerId);$("gxTime").textContent="";
+  $("gxNames").value=keep;$("gxPlay").hidden=true;$("gxSetup").hidden=false;gxCountRefresh();
+  try{location.hash="";}catch(e){}
+});
+$("gxBack").addEventListener("click",function(){clearInterval(gxTimerId);gxHide();$("gx").hidden=true;$("join").hidden=false;});
+$("gxMe").addEventListener("change",function(){gxHide();gxRender();});
+$("gxPrev").addEventListener("click",function(){gxGo(-1);});
+$("gxNext").addEventListener("click",function(){gxGo(1);});
+$("gxShow").addEventListener("click",function(){
+  if(gxShown){gxHide();gxRender();return;}
+  var s=parseInt($("gxMe").value,10)||0,ms=(G.narr&&s===1)?300000:6000;
+  gxShown=true;gxRender();clearTimeout(gxShowT);
+  gxShowT=setTimeout(function(){gxShown=false;gxRender();},ms);
+});
+$("gxReveal").addEventListener("click",function(){gxRev=true;gxHide();gxRender();});
+$("gxExtra").addEventListener("click",function(ev){
+  var b=ev.target.closest("button[data-gx]");if(!b)return;
+  var i=parseInt(b.dataset.i,10);
+  if(b.dataset.gx==="strike")gxStrike[i]=!gxStrike[i];
+  else if(b.dataset.gx==="alive")gxAlive[i]=(gxAlive[i]===false);
+  gxRender();
+});
+$("gxBoard").addEventListener("click",function(ev){
+  var b=ev.target.closest("button[data-i]");if(!b)return;
+  var i=parseInt(b.dataset.i,10),d=parseInt(b.dataset.d,10);
+  gxScores[i]=Math.max(-99,Math.min(999,gxScores[i]+d));gxRender();
+});
+$("gxReset").addEventListener("click",function(){gxZero();gxRender();toast("ล้างคะแนนแล้ว");});
+$("gxTimer").addEventListener("click",function(){
+  clearInterval(gxTimerId);
+  var dur=Math.max(20,Math.min(1800,parseInt($("gxDur").value,10)||G.dur));
+  gxEnd=Date.now()+dur*1000;
+  var tick=function(){var r=Math.max(0,Math.ceil((gxEnd-Date.now())/1000));$("gxTime").textContent=fmt(r);if(r<=0){clearInterval(gxTimerId);toast("หมดเวลา");}};
+  tick();gxTimerId=setInterval(tick,500);
+});
+$("gxCopy").addEventListener("click",function(){if(gxList)copyText(BASE+"#"+gxCodeText(),"คัดลอกลิงก์เชิญแล้ว ส่งให้เพื่อนได้ทันที");});
+$("gxCopyCode").addEventListener("click",function(){if(gxList)copyText(gxCodeText(),"คัดลอกรหัสเชิญแล้ว ส่งให้เพื่อนวางในช่องรหัสเชิญ");});
+$("btnSpy").addEventListener("click",function(){gxOpen("y",randCode(),null);});
+$("btnIns").addEventListener("click",function(){gxOpen("i",randCode(),null);});
+$("btnFish").addEventListener("click",function(){gxOpen("f",randCode(),null);});
+$("btnWolf").addEventListener("click",function(){gxOpen("w",randCode(),null);});
+
 $("btnOdd").addEventListener("click",function(){openOdd(randCode(),null);});
 
 $("btnOffline").addEventListener("click",function(){openOffline(randCode(),null);});
@@ -910,7 +1379,7 @@ $("inviteGo").addEventListener("click",function(){
   var oh=(location.hash||"").replace(/^#/,"");
   var r=parseInvite(oh);
   if(r){openInvite(r);}
-  else if(/^[ops]-/.test(oh)){
+  else if(/^[opsyifw]-/.test(oh)){
     $("inviteMsg").textContent="ลิงก์เชิญอ่านไม่ได้หรือถูกตัดทอน กรุณาขอรหัสเชิญจากผู้เริ่มเกมแล้ววางในช่องด้านบน";
   }
 })();
